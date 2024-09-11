@@ -1,0 +1,39 @@
+/* ---- 💫 https://github.com/JaKooLit 💫 ---- */
+// Sleek 2
+
+{
+"include": "~/.config/waybar/modules",
+"layer": "top",
+"position": "top",
+"height": 14,
+"margin-left": 10,
+"margin-right": 10,
+"margin-top": 2,
+	
+"modules-left": [
+	"custom/menu",
+	"custom/separator#line",
+	"hyprland/workspaces#rw",
+	"custom/separator#line",
+	"tray"
+],
+
+"modules-center": [
+	"custom/swaync",
+	"custom/separator#blank",
+	"clock#2",
+	"custom/separator#blank",
+	"custom/separator#line",
+	"custom/separator#blank_2",
+	"custom/playerctl",
+],
+		
+"modules-right": [
+	"hyprland/window",
+	"custom/separator#line", 
+	"group/audio",
+	"custom/separator#line",
+	"custom/lock",
+	"custom/power",					
+	],
+}

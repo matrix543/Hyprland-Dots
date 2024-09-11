@@ -2,55 +2,9 @@
 /* Waybar Modules */
 
 {
-
-// Weather and Temperature Modules as this is most like to change always. 
-// Result is of course easier to edit
-"custom/weather": {
-	"format": "{}",
-	"format-alt": "{alt}: {}",
-	"format-alt-click": "click",
-	"interval": 3600,
-	"return-type": "json",
-	"exec": "~/.config/hypr/UserScripts/Weather.sh",
-	//"exec": "~/.config/hypr/UserScripts/Weather.py",
-	"exec-if": "ping wttr.in -c1",
-	"tooltip": true,
-},
-"temperature": {
-	"interval": 10,
-	"tooltip": true,
-	"hwmon-path": [
-		"/sys/class/hwmon/hwmon1/temp1_input",
-		"/sys/class/thermal/thermal_zone0/temp"
-	],
-	//"thermal-zone": 0,
-	"critical-threshold": 82,
-	"format-critical": "{temperatureC}°C {icon}",
-	"format": "{temperatureC}°C {icon}",
-	"format-icons": [
-		"󰈸"
-	],
-	"on-click-right": "kitty --title nvtop sh -c 'nvtop'"
-},
-"temperature#vertical": {
-	"interval": 10,
-	"tooltip": true,
-	"hwmon-path": [
-		"/sys/class/hwmon/hwmon1/temp1_input",
-		"/sys/class/thermal/thermal_zone0/temp"
-	],
-	//"thermal-zone": 0,
-	"critical-threshold": 80,
-	"format-critical": "{icon}\n{temperatureC}°C",
-	"format": " {icon}",
-	"format-icons": [
-		"󰈸"
-	],
-	"on-click-right": "kitty --title nvtop sh -c 'nvtop'"
-},
-
 // HYPRLAND WORKSPACES. CHOOSE as desired and place on waybar configs
 // CIRCLES Style
+
 "hyprland/workspaces": {
 	"active-only": false,
 	"all-outputs": true,
@@ -71,6 +25,39 @@
 		"default": "",
 	},
 },
+"hyprland/workspaces#miku": {
+        "active-only": false,
+        "all-outputs": false,
+        "format": "{icon}",
+        "on-click": "activate",
+        "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": [],
+            // "6": [],
+            // "7": [],
+            // "8": [],
+            // "9": [],
+            // "10": []
+        },
+        "format": "{icon}",
+        "format-icons": {
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+            "6": "6",
+            "7": "7",
+            "8": "8",
+            "9": "9",
+            "10": "10",
+            "active": "<small></small>",
+            "default": "",
+        }
+ },
 // ROMAN Numerals style
 "hyprland/workspaces#roman": {
 	"active-only": false,
@@ -161,14 +148,14 @@
 	"all-outputs": true,
 	"sort-by-number": true,
 	"format-icons": {
-		"1": " ",
-		"2": " ",
+		"1": " ",
+		"2": " ",
 		"3": " ",
-		"4": " ",
-		"5": " ",
-		"6": " ",
+		"4": " ",
+		"5": " ",
+		"6": " ",
 		"7": "",
-		"8": " ",
+		"8": " ",
 		"9": "",
 		"10": "10",
 		"focused": "",
@@ -186,34 +173,45 @@
 	"on-scroll-up": "hyprctl dispatch workspace e+1",
 	"on-scroll-down": "hyprctl dispatch workspace e-1",
 	"format": "{icon} {windows}",
+	"persistent-workspaces": {
+		"1": [],
+		"2": [],
+		"3": [],
+		"4": [],
+		"5": [],
+	},
 	"format-window-separator": " ",
 	"window-rewrite-default": " ",
 	"window-rewrite": {
 		"title<.*youtube.*>": " ",
 		"title<.*amazon.*>": " ",
 		"title<.*reddit.*>": " ",
+		"title<.*spotify.*>": " ",
 		"title<.*Picture-in-Picture.*>": " ",
 		"class<firefox>": " ",
-		"class<org.mozilla.firefox>": " ",
-		"class<kitty>": " ",
-		"class<kitty-dropterm>": " ",
-		"class<konsole>": " ",
-		"class<Chromium>": "<span font='12'> </span>",
-		"class<org.telegram.desktop|io.github.tdesktop_x64.TDeskto>": "<span font='12'> </span>",
-		"class<[Ss]potify>": "<span font='12'> </span>",
-		"class<VSCode|code-url-handler>": "<span font='12'>󰨞</span>",
+		"class<Brave-browser>": " ",
+		
+		"class<org.telegram.desktop>": " ",
+		"class<SchildiChat>": " ",
+		"class<pear-runtime>": " ",
+		
+		"class<Skype>": " ",
+		"title<Steam>": " ",
+		"class<kitty>": " ",
+		"class<konsole>": " ",
 		"class<thunar>": "󰝰 ",
-		"class<[Tt]hunderbird>": " ",
 		"class<discord>": " ",
 		"class<WebCord>": " ",
 		"class<subl>": "󰅳 ",
 		"class<celluloid>": " ",
 		"class<Cider>": "󰎆 ",
-		"class<virt-manager>": " ",
+		"class<jetbrains-phpstorm>": " ",
+		"class<jetbrains-pycharm-ce>": " ",
 		"class<code-oss>": "󰨞 ",
 		"class<codium|codium-url-handler|VSCodium>": "󰨞 ",
 		"class<codeblocks>": "󰅩 ",
 		"class<mousepad>": " ",
+		"class<org.gnome.TextEditor>": " ",
 		"class<libreoffice-writer>": " ",
 		"class<libreoffice-startcenter>": "󰏆 ",
 		"class<com.obsproject.Studio>": " "
@@ -301,6 +299,14 @@
 	"modules": [
 		"network",
 		"bluetooth",
+	]
+},
+"group/powermenu": {
+	"orientation": "inherit",
+	"modules": [
+		"bluetooth",
+		"custom/lock",
+		"custom/power",
 	]
 },
 "backlight": {
@@ -422,6 +428,10 @@
     "format": "{:%a %d | %H:%M}", // 24H
 	"format-alt": "{:%A, %d %B, %Y (%R)}"
 },
+ "clock#miku": {
+        "format": "{:%H:%M}",
+        "tooltip-format": "{:%A, %d %B %Y}",
+},
 "cpu": {
 	"format": "{usage}% 󰍛",
 	"interval": 1,
@@ -454,17 +464,23 @@
 	"tooltip": false,
 },
 "hyprland/window": {
-	"format": "{}",
+	"format": "{title}",
 	"max-length": 20,
 	"separate-outputs": true,
 	"offscreen-css": true,
 	"offscreen-css-text": "(inactive)",
 	"rewrite": {
 		"(.*) — Mozilla Firefox": " $1",
+		"(.*) – Brave": " $1",
+		"Steam": " Steam",
 		"(.*) - fish": "> [$1]",
 		"(.*) - zsh": "> [$1]",
 		"(.*) - $term": "> [$1]",
 	},
+},
+"hyprland/window#miku": {
+        "max-length": 40,
+        "tooltip": false
 },
 "idle_inhibitor": {
 	"format": "{icon}",
@@ -496,8 +512,9 @@
 },
 "mpris": {
 	"interval": 10,
-	"format": "{player_icon} ",
+	"format": "{player_icon}",	
 	"format-paused": "{status_icon} <i>{dynamic}</i>",
+	"format-playing": "{player_icon} {status_icon} <i>{dynamic}</i>",	
 	"on-click-middle": "playerctl play-pause",
 	"on-click": "playerctl previous",
 	"on-click-right": "playerctl next",
@@ -514,13 +531,17 @@
 		"mpv": "󰐹",
 		"spotify": "",
 		"vlc": "󰕼",
+		"musikcube": "󰐹",
+		"brave": "",
+				
+				
 	},
 	"status-icons": {
 		"paused": "󰐎",
 		"playing": "",
 		"stopped": "",
 	},
-	// "ignored-players": ["firefox"]
+	///"ignored-players": ["mpv"],
 	"max-length": 30,
 },
 "network": {
@@ -623,9 +644,33 @@
 	"tooltip-format": "{source_desc} | {source_volume}%",
 	"scroll-step": 5,
 },
+"temperature": {
+	"interval": 10,
+	"tooltip": true,
+	"hwmon-path": [
+		"/sys/class/hwmon/hwmon1/temp1_input",
+		"/sys/class/thermal/thermal_zone0/temp"
+	],
+	//"thermal-zone": 0,
+	"critical-threshold": 82,
+	"format-critical": "{temperatureC}°C {icon}",
+	"format": "{temperatureC}°C {icon}",
+	"format-icons": [
+		"󰈸"
+	],
+	"on-click-right": "kitty --title nvtop sh -c 'nvtop'"
+},
 "tray": {
 	"icon-size": 18,
 	"spacing": 4,
+},
+"tray#miku": {
+        "icon-size": 15,
+        "spacing": 3
+},
+"tray#noctune": {
+        "icon-size": 15,
+        "spacing": 0
 },
 "wireplumber": {
 	"format": "{icon} {volume} %",
@@ -688,7 +733,10 @@
 
 },
 "custom/menu": {
+	//"format": "",
 	"format": "",
+	//"format": "",
+		
 	"on-click": "pkill rofi || rofi -show drun -modi run,drun,filebrowser,window",
 	"on-click-middle": "~/.config/hypr/UserScripts/WallpaperSelect.sh",
 	"on-click-right": "~/.config/hypr/scripts/WaybarLayout.sh",
@@ -704,7 +752,7 @@
 	"format": "<span>{}</span>",
 	"return-type": "json",
 	"max-length": 35,
-	"exec": "playerctl -a metadata --format '{\"text\": \"{{artist}} ~ {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+	"exec": "playerctl -a metadata --format '{\"text\": \"󰐹  {{artist}} ~ {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
 	"on-click-middle": "playerctl play-pause",
 	"on-click": "playerctl previous",
 	"on-click-right": "playerctl next",
@@ -712,6 +760,25 @@
 	"on-scroll-up": "~/.config/hypr/scripts/Volume.sh --inc",
 	"on-scroll-down": "~/.config/hypr/scripts/Volume.sh --dec",
 	"smooth-scrolling-threshold": 1,
+	"player-icons": {
+		"chromium": "",
+		"default": "",
+		"firefox": "",
+		"kdeconnect": "",
+		"mopidy": "",
+		"mpv": "󰐹",
+		"spotify": "",
+		"vlc": "󰕼",
+		"musikcube": "󰐹",
+		"brave": "󰐹",
+				
+				
+	},
+	"status-icons": {
+		"paused": "󰐎",
+		"playing": "",
+		"stopped": "",
+	}
 },
 "custom/power": {
 	"format": "⏻ ",
@@ -751,6 +818,27 @@
 	"tooltip": true,
 	"tooltip-format": "Left Click: Update System\nArch Linux Only",
 },
+"custom/weather": {
+	"format": "{}",
+	"format-alt": "{alt}: {}",
+	"format-alt-click": "click",
+	"interval": 3600,
+	"return-type": "json",
+	//"exec": "~/.config/hypr/UserScripts/Weather.sh",
+	"exec": "~/.config/hypr/UserScripts/Weather.py",
+	//"exec-if": "ping wttr.in -c1",
+	"tooltip": true,
+},
+"custom/crypto": {
+	"format": "{}",
+	//"format-alt": "{alt}: {}",
+	///"format-alt-click": "click",
+	"interval": 10,
+	"return-type": "json",
+	"exec": "~/.config/hypr/UserScripts/CMC_api.sh",
+	"tooltip": true,
+},
+
 
 // Separators
 "custom/separator#dot": {
@@ -762,6 +850,10 @@
 	"format": "",
 	"interval": "once",
 	"tooltip": false
+},
+"custom/seperator#miku":{
+        "format": "|",
+        "tooltip": false
 },
 "custom/separator#line": {
 	"format": "|",
@@ -868,6 +960,22 @@
 	"max-volume": 100,
 	"tooltip": true,
 	"tooltip-format": "{source_desc} | {source_volume}%",
+},
+"temperature#vertical": {
+	"interval": 10,
+	"tooltip": true,
+	"hwmon-path": [
+		"/sys/class/hwmon/hwmon1/temp1_input",
+		"/sys/class/thermal/thermal_zone0/temp"
+	],
+	//"thermal-zone": 0,
+	"critical-threshold": 80,
+	"format-critical": "{icon}\n{temperatureC}°C",
+	"format": " {icon}",
+	"format-icons": [
+		"󰈸"
+	],
+	"on-click-right": "kitty --title nvtop sh -c 'nvtop'"
 },
 "custom/power_vertical": {
 	"format": "⏻",

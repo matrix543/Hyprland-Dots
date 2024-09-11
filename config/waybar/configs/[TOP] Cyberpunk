@@ -1,0 +1,35 @@
+// github.com/pahasara/dotFiles
+{
+    "include": "~/.config/waybar/modules",
+    "margin-top": 5,
+    "margin-left": 0,
+    "margin-right": 0,
+    "margin-bottom": 0,
+    "layer": "bottom",
+    "position": "top",
+    "spacing": 9,
+    
+    "modules-left": [
+        "custom/menu",
+        "hyprland/workspaces#miku",
+	"mpris",
+	//"custom/playerctl",
+	"custom/weather",
+    ],
+    "modules-center": [
+        "custom/swaync",
+	"clock#miku",
+    ],
+    "modules-right": [
+	//"group/connections",
+	"custom/crypto",
+        "tray#noctune",
+        //"wireplumber",
+	"pulseaudio",
+	//"pulseaudio#microphone",
+	//"bluetooth",
+	//"group/connections",
+        "custom/separator#noctune",
+	"group/powermenu",
+    ],
+}

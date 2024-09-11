@@ -1,0 +1,196 @@
+/* github.com/pahasara/dotFiles */
+
+@import '../../.config/waybar/wallust/colors-waybar.css';
+
+
+@define-color background transparent;
+@define-color bg-module @color0;
+@define-color bg-tray @color0;
+
+/*@define-color foreground rgba(49, 163, 200, 1.0); */
+@define-color fg-module @color6;
+@define-color fg-alt @color6;
+@define-color fg-blink @color6;
+@define-color fg-persist @color10;
+
+@define-color border transparent;
+@define-color border-module @color11;
+@define-color border-alt @color12;
+
+@define-color separator rgba(56, 70, 84, 1.0);
+
+* {
+   /* font-family: "Cyberpunk"; */
+    font-family: "Rajdhani";
+    font-size: 12px;
+    min-height: 20px;
+    padding: 0 3px;
+    font-weight: bold;
+}
+
+
+window#waybar {
+    background: @background;
+    border: 0px solid @border;
+    border-radius: 10;
+}
+
+#window {}
+
+#workspaces {}
+
+#workspaces button {
+    margin: 0 1px;
+    padding: 0 2px;
+    color: @fg-module;
+}
+
+#workspaces button:hover {
+    background: transparent;
+}
+
+#workspaces button.focused {
+    border-top: 2px solid transparent;
+}
+
+#workspaces button.active {
+    color: @foreground;
+}
+
+#mode {
+    background: #64727D;
+    border-bottom: 3px solid white;
+}
+
+#custom-bandwidth,
+#custom-notification,
+#custom-update,
+#idle_inhibitor,
+#window,
+#memory,
+#custom-storage,
+/*#network, */
+#wireplumber,
+#pulseaudio,
+#battery,
+#tray,
+#backlight,
+#workspaces,
+#clock,
+#cpu,
+#custom-spotify,
+/*#bluetooth, */
+#custom-menu,
+#custom-swaync,
+/*#custom-lock,
+#custom-power, */
+#powermenu,
+#custom-crypto,
+#custom-weather,
+#mpris,
+#custom-playerctl,
+#mode {
+    padding: 2 10 2 8px;
+    background-color: @bg-module;
+    border-radius: 14px;
+    border: 2px solid @border-module;
+    color: @fg-module;
+}
+
+#bluetooth,
+#custom-lock,
+#custom-power {
+ padding: 2px 8px;
+}
+
+
+#tray {
+    background-color: @bg-tray;
+}
+
+#wireplumber{
+padding: 2px 15px;
+}
+
+#custom-menu,
+#custom-swaync {
+	padding: 2px 15px;
+}
+#custom-menu {
+    color: @foreground;
+}
+
+#battery {}
+
+#battery icon {
+    color: red;
+}
+
+#battery.plugged {
+    color: @foreground;
+    animation-name: blink;
+    animation-duration: 1.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#battery.charging {
+    color: @foreground;
+    animation-name: blink;
+    animation-duration: 1.0s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes blink {
+    to {
+        color: @fg-blink;
+    }
+}
+
+#battery.warning:not(.charging) {
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#cpu {}
+
+#memory {}
+
+#network {
+    padding: 2 13 2 8px;
+}
+
+#network.disconnected {}
+
+#idle_inhibitor {
+    color: @foreground;
+    padding: 2 5 2 8px;
+}
+
+#custom-update {
+    padding: 2 13 2 8px;
+}
+
+#idle_inhibitor.activated {
+    color: @fg-module;
+}
+
+#pulseaudio {}
+
+#pulseaudio.muted {}
+
+#custom-spotify {}
+
+#custom-seperator {
+    color: @separator;
+}
+
+#tray {
+    padding:2 8;
+}

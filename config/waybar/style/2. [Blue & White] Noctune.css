@@ -1,0 +1,190 @@
+/* github.com/pahasara/dotFiles */
+
+@define-color background rgba(0, 0, 0, 0.0);
+@define-color bg-module rgba(0, 0, 0, 0.7);
+@define-color bg-tray rgba(0, 0, 0, 0.8);
+
+@define-color foreground rgba(49, 163, 200, 1.0);
+@define-color fg-module rgba(245, 250, 255, 1.0);
+@define-color fg-alt rgba(0, 200, 255, 1.0);
+@define-color fg-blink rgba(75, 230, 255, 1.0);
+@define-color fg-persist rgba(135, 145, 165, 1.0);
+
+@define-color border rgba(0, 175, 250, 1);
+@define-color border-module rgba(60, 158, 224, 1.0);
+@define-color border-alt rgba(2, 10, 20, 1.0);
+
+@define-color separator rgba(56, 70, 84, 1.0);
+
+* {
+    font-family: "CaskaydiaMono Nerd Font";
+    font-size: 12px;
+    min-height: 20px;
+    padding: 0 3px;
+    font-weight: bold;
+}
+
+
+window#waybar {
+    background: @background;
+    border: 0px solid @border;
+    border-radius: 10;
+}
+
+#window {}
+
+#workspaces {}
+
+#workspaces button {
+    margin: 0 1px;
+    padding: 0 2px;
+    color: @fg-module;
+}
+
+#workspaces button:hover {
+    background: transparent;
+}
+
+#workspaces button.focused {
+    border-top: 2px solid transparent;
+}
+
+#workspaces button.active {
+    color: @foreground;
+}
+
+#mode {
+    background: #64727D;
+    border-bottom: 3px solid white;
+}
+
+#custom-bandwidth,
+#custom-notification,
+#custom-update,
+#idle_inhibitor,
+#window,
+#memory,
+#custom-storage,
+/*#network, */
+#wireplumber,
+#battery,
+#tray,
+#backlight,
+#workspaces,
+#clock,
+#cpu,
+#custom-spotify,
+/*#bluetooth, */
+#custom-menu,
+#custom-swaync,
+/*#custom-lock,
+#custom-power, */
+#powermenu,
+#custom-crypto,
+#custom-weather,
+#mpris,
+#mode {
+    padding: 2 10 2 8px;
+    background-color: @bg-module;
+    border-radius: 14px;
+    border: 2px solid @border-module;
+    color: @fg-module;
+}
+
+#bluetooth,
+#custom-lock,
+#custom-power {
+ padding: 2px 8px;
+}
+
+
+#tray {
+    background-color: @bg-tray;
+}
+
+#wireplumber{
+padding: 2px 15px;
+}
+
+#custom-menu,
+#custom-swaync {
+	padding: 2px 15px;
+}
+#custom-menu {
+    color: @foreground;
+}
+
+#battery {}
+
+#battery icon {
+    color: red;
+}
+
+#battery.plugged {
+    color: @foreground;
+    animation-name: blink;
+    animation-duration: 1.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#battery.charging {
+    color: @foreground;
+    animation-name: blink;
+    animation-duration: 1.0s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes blink {
+    to {
+        color: @fg-blink;
+    }
+}
+
+#battery.warning:not(.charging) {
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#cpu {}
+
+#memory {}
+
+#network {
+    padding: 2 13 2 8px;
+}
+
+#network.disconnected {}
+
+#idle_inhibitor {
+    color: @foreground;
+    padding: 2 5 2 8px;
+}
+
+#custom-update {
+    padding: 2 13 2 8px;
+}
+
+#idle_inhibitor.activated {
+    color: @fg-module;
+}
+
+#pulseaudio {}
+
+#pulseaudio.muted {}
+
+#custom-spotify {}
+
+#custom-seperator {
+    color: @separator;
+}
+
+#tray {
+    padding:2 8;
+}

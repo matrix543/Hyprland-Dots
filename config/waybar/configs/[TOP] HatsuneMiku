@@ -1,0 +1,116 @@
+// github.com/pahasara/dotFiles
+{
+    //#####################
+    //### CONFIGURATION ###
+    //#####################
+    // "reload_style_on_change": true,
+    "include": "~/.config/waybar/modules",
+
+    "margin-top": 3,
+    "margin-left": 10,
+    "margin-right": 10,
+    "margin-bottom": 0,
+    "layer": "top",
+    "position": "top",
+    "spacing": 0,
+    //##################
+    //### BAR ORDER  ###
+    //##################
+    
+   "modules-left": [
+       "custom/menu",
+       ///"idle_inhibitor",
+        // "custom/seperator",
+        "hyprland/workspaces#miku",
+        // "custom/seperator",
+        //"custom/spotify"
+	"mpris",
+    ],
+    
+    "modules-center": [
+	"custom/swaync",
+ 	"custom/seperator#miku",
+	"clock#miku",
+	"custom/seperator#miku",	
+        "hyprland/window#miku",
+    ],
+    
+    "modules-right": [
+        // "custom/update",
+        "tray#miku",
+        "custom/seperator#miku", 
+	"pulseaudio",
+	"pulseaudio#microphone",
+	//"group/audio",
+	"custom/separator#miku",
+	///"battery",
+        // "custom/seperator",
+        // "clock#cal",
+        // "custom/seperator",
+	"bluetooth",
+        "custom/separator#miku",
+	"custom/lock",
+	"custom/power",
+    ],
+    //################
+    //### MODULES  ###
+    //################
+	
+  
+    "clock#cal": {
+        "format": "{:%a, %d %b}",
+         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+    "battery": {
+        "interval": 5,
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon}",
+        "format-charging": " {capacity}%",
+        "format-plugged": "",
+        // "format-alt": "{time} {icon}",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "{icon} {capacity}%",
+        "format-icons": [
+            " ",
+            " ",
+            " ",
+            " ",
+            " "
+        ],
+        // "tooltip-format": "{capacity}%"
+    },
+   
+    "custom/spotify": {
+        "interval": 1,
+        "exec": "~/.scripts/now-playing",
+        "on-click": "~/.scripts/play-next",
+        "on-click-right": "~/.scripts/play-previous",
+        "escape": true
+    },
+    "custom/storage": {
+        "format": "{}  ",
+        "format-alt": "{percentage}%  ",
+        "return-type": "json",
+        "interval": 60,
+        "exec": "~/.config/waybar/modules/storage.sh"
+    },
+    "custom/weather": {
+        "format": "{}",
+        "format-alt": "{alt}: {}",
+        "format-alt-click": "click-right",
+        "interval": 1800,
+        "return-type": "json",
+        "exec": "~/.config/waybar/modules/weather.sh",
+        "exec-if": "ping wttr.in -c1"
+    },
+    "custom/update": {
+        "exec": "~/.scripts/check-update",
+        "interval": 43200,
+        "on-click": "~/.scripts/check-update",
+        "tooltip-format": "Check Updates"
+    },
+}
