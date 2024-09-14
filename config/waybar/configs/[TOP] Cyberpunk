@@ -1,6 +1,8 @@
-// github.com/pahasara/dotFiles
+// github.com/matrix435/Hyprland-Dots
 {
-    "include": "~/.config/waybar/modules",
+    "include": "$HOME/.config/waybar/Modules",
+    "include": "$HOME/.config/waybar/ModulesWorkspaces",
+
     "margin-top": 5,
     "margin-left": 0,
     "margin-right": 0,

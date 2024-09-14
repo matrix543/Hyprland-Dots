@@ -1,10 +1,7 @@
 // github.com/pahasara/dotFiles
 {
-    //#####################
-    //### CONFIGURATION ###
-    //#####################
-    // "reload_style_on_change": true,
-    "include": "~/.config/waybar/modules",
+   "include": "$HOME/.config/waybar/Modules",
+   "include": "$HOME/.config/waybar/ModulesWorkspaces",
 
     "margin-top": 3,
     "margin-left": 10,
