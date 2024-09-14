@@ -3,9 +3,9 @@
 // ### TOP and LEFT PANEL ## //
 
 [{
-"include": "$HOME/.config/waybar/Modules",
-"include": "$HOME/.config/waybar/ModulesWorkspaces",
-
+"include": [
+  "$HOME/.config/waybar/Modules", "$HOME/.config/waybar/ModulesWorkspaces",
+],
 "layer": "top",
 //"mode": "dock",
 "width": 1200,
@@ -44,9 +44,8 @@
 
 {
 "include": [
-  "$HOME/.config/waybar/Modules",
-  "$HOME/.config/waybar/ModulesWorkspaces",
-  ],
+  "$HOME/.config/waybar/Modules", "$HOME/.config/waybar/ModulesWorkspaces",
+],
 "layer": "top",
 "position": "left",
 "height": 650,

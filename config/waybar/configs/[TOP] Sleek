@@ -2,9 +2,9 @@
 // Sleek
 
 {
-"include": "$HOME/.config/waybar/Modules",
-"include": "$HOME/.config/waybar/ModulesWorkspaces",
-
+"include": [
+  "$HOME/.config/waybar/Modules", "$HOME/.config/waybar/ModulesWorkspaces",
+],
 "layer": "top",
 "position": "top",
 "height": 14,

@@ -1,9 +1,10 @@
 //* ---- 💫 https://github.com/JaKooLit 💫 ---- *//
 /* Waybar Modules */
-
+{
 /* NOTE: hyprland-workspaces on a separate file */
 // Weather and Temperature Modules as this is most like to change always. 
 // Result is of course easier to edit
+
 "custom/weather": {
 	"format": "{}",
 	"format-alt": "{alt}: {}",
@@ -323,8 +324,8 @@
 	"on-click": "playerctl previous",
 	"on-click-right": "playerctl next",
 	"scroll-step": 5.0,
-	"on-scroll-up": "$HOME/.config/hypr/scripts/Volume.sh --inc",
-	"on-scroll-down": "$HOME/.config/hypr/scripts/Volume.sh --dec",
+	"on-scroll-up": "~/.config/hypr/scripts/Volume.sh --inc",
+	"on-scroll-down": "~/.config/hypr/scripts/Volume.sh --dec",
 	"smooth-scrolling-threshold": 1,
 	"player-icons": {
 		"chromium": "",
@@ -336,7 +337,9 @@
 		"spotify": "",
 		"vlc": "󰕼",
 		"musikcube": "󰐹",
-		"brave": "",				
+		"brave": "",
+				
+				
 	},
 	"status-icons": {
 		"paused": "󰐎",
@@ -446,22 +449,7 @@
 	"tooltip-format": "{source_desc} | {source_volume}%",
 	"scroll-step": 5,
 },
-"temperature": {
-	"interval": 10,
-	"tooltip": true,
-	"hwmon-path": [
-		"/sys/class/hwmon/hwmon1/temp1_input",
-		"/sys/class/thermal/thermal_zone0/temp"
-	],
-	//"thermal-zone": 0,
-	"critical-threshold": 82,
-	"format-critical": "{temperatureC}°C {icon}",
-	"format": "{temperatureC}°C {icon}",
-	"format-icons": [
-		"󰈸"
-	],
-	"on-click-right": "kitty --title nvtop sh -c 'nvtop'"
-},
+
 "tray": {
 	"icon-size": 20,
 	"spacing": 4,
@@ -631,17 +619,6 @@
 	"tooltip": true,
 	"tooltip-format": "Left Click: Update System\nArch Linux Only",
 },
-"custom/weather": {
-	"format": "{}",
-	"format-alt": "{alt}: {}",
-	"format-alt-click": "click",
-	"interval": 3600,
-	"return-type": "json",
-	//"exec": "~/.config/hypr/UserScripts/Weather.sh",
-	"exec": "~/.config/hypr/UserScripts/Weather.py",
-	//"exec-if": "ping wttr.in -c1",
-	"tooltip": true,
-},
 "custom/crypto": {
 	"format": "{}",
 	//"format-alt": "{alt}: {}",
@@ -663,6 +640,10 @@
 	"tooltip": false
 },
 "custom/seperator#miku":{
+        "format": "|",
+        "tooltip": false
+},
+"custom/seperator#noctune":{
         "format": "|",
         "tooltip": false
 },
@@ -772,22 +753,6 @@
 	"tooltip": true,
 	"tooltip-format": "{source_desc} | {source_volume}%",
 },
-"temperature#vertical": {
-	"interval": 10,
-	"tooltip": true,
-	"hwmon-path": [
-		"/sys/class/hwmon/hwmon1/temp1_input",
-		"/sys/class/thermal/thermal_zone0/temp"
-	],
-	//"thermal-zone": 0,
-	"critical-threshold": 80,
-	"format-critical": "{icon}\n{temperatureC}°C",
-	"format": " {icon}",
-	"format-icons": [
-		"󰈸"
-	],
-	"on-click-right": "kitty --title nvtop sh -c 'nvtop'"
-},
 "custom/power_vertical": {
 	"format": "⏻",
 	"exec": "echo ; echo 󰟡 power // blur",
@@ -796,4 +761,5 @@
 	"interval": 86400, // once every day
 	"tooltip": true,
 },
+
 }
