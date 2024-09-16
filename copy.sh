@@ -182,7 +182,7 @@ NOTE:
     echo "${NOTE} kb_layout $new_layout configured in settings." 2>&1 | tee -a "$LOG" 
     break ;;
     *)
-    echo "Please enter either 'y' or 'n'." ;;
+    echo "${ERROR} Please enter either 'y' or 'n'." ;;
   esac
 done
 
@@ -212,7 +212,7 @@ while true; do
         break
         ;;
     *)
-        echo "Invalid choice. Please enter 1 for ≤ 1080p or 2 for ≥ 1440p."
+        echo "${ERROR} Invalid choice. Please enter 1 for ≤ 1080p or 2 for ≥ 1440p."
         ;;
   esac
 done
@@ -248,23 +248,23 @@ while true; do
   if [[ "$answer" == "y" ]]; then
     # Modify waybar config if 12hr is selected
     # Clock 1
-    sed -i 's#^    \/\/"format": " {:%I:%M %p}", // AM PM format#    "format": " {:%I:%M %p}", // AM PM format#' config/waybar/modules 2>&1 | tee -a "$LOG"
-    sed -i 's#^    "format": " {:%H:%M:%S}", // 24H#    \/\/"format": " {:%H:%M:%S}", // 24H#' config/waybar/modules 2>&1 | tee -a "$LOG"
+    sed -i 's#^    \/\/"format": " {:%I:%M %p}", // AM PM format#    "format": " {:%I:%M %p}", // AM PM format#' config/waybar/Modules 2>&1 | tee -a "$LOG"
+    sed -i 's#^    "format": " {:%H:%M:%S}", // 24H#    \/\/"format": " {:%H:%M:%S}", // 24H#' config/waybar/Modules 2>&1 | tee -a "$LOG"
     
     # Clock 2
-    sed -i 's#^    "format": "  {:%H:%M}", // 24H#    \/\/"format": "  {:%H:%M}", // 24H#' config/waybar/modules 2>&1 | tee -a "$LOG"
+    sed -i 's#^    "format": "  {:%H:%M}", // 24H#    \/\/"format": "  {:%H:%M}", // 24H#' config/waybar/Modules 2>&1 | tee -a "$LOG"
     
     # Clock 3
-    sed -i 's#^    \/\/"format": "{:%I:%M %p - %d/%b}", //for AM/PM#    "format": "{:%I:%M %p - %d/%b}", //for AM/PM#' config/waybar/modules 2>&1 | tee -a "$LOG"
-    sed -i 's#^    "format": "{:%H:%M - %d/%b}", // 24H#    \/\/"format": "{:%H:%M - %d/%b}", // 24H#' config/waybar/modules 2>&1 | tee -a "$LOG"
+    sed -i 's#^    \/\/"format": "{:%I:%M %p - %d/%b}", //for AM/PM#    "format": "{:%I:%M %p - %d/%b}", //for AM/PM#' config/waybar/Modules 2>&1 | tee -a "$LOG"
+    sed -i 's#^    "format": "{:%H:%M - %d/%b}", // 24H#    \/\/"format": "{:%H:%M - %d/%b}", // 24H#' config/waybar/Modules 2>&1 | tee -a "$LOG"
     
     # Clock 4
-    sed -i 's#^    \/\/"format": "{:%B | %a %d, %Y | %I:%M %p}", // AM PM format#    "format": "{:%B | %a %d, %Y | %I:%M %p}", // AM PM format#' config/waybar/modules 2>&1 | tee -a "$LOG"
-    sed -i 's#^    "format": "{:%B | %a %d, %Y | %H:%M}", // 24H#    \/\/"format": "{:%B | %a %d, %Y | %H:%M}", // 24H#' config/waybar/modules 2>&1 | tee -a "$LOG"
+    sed -i 's#^    \/\/"format": "{:%B | %a %d, %Y | %I:%M %p}", // AM PM format#    "format": "{:%B | %a %d, %Y | %I:%M %p}", // AM PM format#' config/waybar/Modules 2>&1 | tee -a "$LOG"
+    sed -i 's#^    "format": "{:%B | %a %d, %Y | %H:%M}", // 24H#    \/\/"format": "{:%B | %a %d, %Y | %H:%M}", // 24H#' config/waybar/Modules 2>&1 | tee -a "$LOG"
 
     # Clock 5
-    sed -i 's#^    \/\/"format": "{:%A, %I:%M %P}", // AM PM format#    "format": "{:%A, %I:%M %P}", // AM PM format#' config/waybar/modules 2>&1 | tee -a "$LOG"
-    sed -i 's#^    "format": "{:%a %d | %H:%M}", // 24H#    \/\/"format": "{:%a %d | %H:%M}", // 24H#' config/waybar/modules 2>&1 | tee -a "$LOG"
+    sed -i 's#^    \/\/"format": "{:%A, %I:%M %P}", // AM PM format#    "format": "{:%A, %I:%M %P}", // AM PM format#' config/waybar/Modules 2>&1 | tee -a "$LOG"
+    sed -i 's#^    "format": "{:%a %d | %H:%M}", // 24H#    \/\/"format": "{:%a %d | %H:%M}", // 24H#' config/waybar/Modules 2>&1 | tee -a "$LOG"
             
     # for hyprlock
     sed -i 's/^    text = cmd\[update:1000\] echo "\$(date +"%H")"/# &/' config/hypr/hyprlock.conf 2>&1 | tee -a "$LOG"
@@ -292,7 +292,7 @@ while true; do
       sudo sed -i 's|^## HourFormat="hh:mm AP"|HourFormat="hh:mm AP"|' "$sddm_folder_2/theme.conf" 2>&1 | tee -a "$LOG" || true
       sudo sed -i 's|^HourFormat="HH:mm"|## HourFormat="HH:mm"|' "$sddm_folder_2/theme.conf" 2>&1 | tee -a "$LOG" || true
 
-      echo "12H format set to SDDM theme successfully." 2>&1 | tee -a "$LOG"
+      echo "${OK} 12H format set to SDDM theme successfully." 2>&1 | tee -a "$LOG"
     fi
 
     break
@@ -300,7 +300,7 @@ while true; do
     echo "You chose not to change to 12H format." 2>&1 | tee -a "$LOG"
     break
   else
-    echo "Invalid choice. Please enter y for yes or n for no."
+    echo "${ERROR} Invalid choice. Please enter y for yes or n for no."
   fi
 done
 
@@ -334,6 +334,7 @@ printf "\n"
 set -e # Exit immediately if a command exits with a non-zero status.
 
 printf "${NOTE} - copying dotfiles\n"
+
 # Function to create a unique backup directory name with month, day, hours, and minutes
 get_backup_dirname() {
   local timestamp
@@ -341,25 +342,93 @@ get_backup_dirname() {
   echo "back-up_${timestamp}"
 }
 
-for DIR in ags btop cava fastfetch hypr kitty Kvantum nvim qt5ct qt6ct rofi swappy swaync wallust waybar wlogout; do 
+for DIR in btop cava hypr Kvantum qt5ct qt6ct swappy wallust wlogout; do 
   DIRPATH=~/.config/"$DIR"
   if [ -d "$DIRPATH" ]; then 
     echo -e "${NOTE} - Config for $DIR found, attempting to back up."
     BACKUP_DIR=$(get_backup_dirname)
+    
+    # Backup the existing directory
     mv "$DIRPATH" "$DIRPATH-backup-$BACKUP_DIR" 2>&1 | tee -a "$LOG"
-    echo -e "${NOTE} - Backed up $DIR to $DIRPATH-backup-$BACKUP_DIR."
+    if [ $? -eq 0 ]; then
+      echo -e "${NOTE} - Backed up $DIR to $DIRPATH-backup-$BACKUP_DIR."
+      
+      # Copy new config
+      cp -r config/"$DIR" ~/.config/"$DIR" 2>&1 | tee -a "$LOG"
+      if [ $? -eq 0 ]; then
+        echo "${OK} - Copy of config for $DIR completed!"
+      else
+        echo "${ERROR} - Failed to copy $DIR."
+        exit 1
+      fi
+    else
+      echo "${ERROR} - Failed to back up $DIR."
+      exit 1
+    fi
   fi
 done
 
-printf "\n%.0s" {1..2}
+printf "\n%.0s" {1..1}
 
-# Copying config files
-mkdir -p ~/.config
-cp -r config/* ~/.config/ && { echo "${OK}Copy completed!"; } || { echo "${ERROR} Failed to copy config files."; exit 1; } 2>&1 | tee -a "$LOG"
+printf "${NOTE} - copying dotfiles second part\n"
+
+# Config directories which will ask the user whether to replace or not
+DIRS="ags fastfetch kitty nvim rofi swaync waybar"
+for DIR2 in $DIRS; do
+  DIRPATH=~/.config/"$DIR2"
+  
+  if [ -d "$DIRPATH" ]; then
+    while true; do
+      read -p "${CAT} ${ORANGE}$DIR2${RESET} config found in ~/.config/ Do you want to replace ${ORANGE}$DIR2${RESET} config? (Y/N): " CHOICE
+      case "$CHOICE" in
+        [Yy]* )
+          BACKUP_DIR=$(get_backup_dirname)
+          echo -e "${NOTE} - Config for ${YELLOW}$DIR2${RESET} found, attempting to back up."
+          
+          mv "$DIRPATH" "$DIRPATH-backup-$BACKUP_DIR" 2>&1 | tee -a "$LOG"
+          if [ $? -eq 0 ]; then
+            echo -e "${NOTE} - Backed up $DIR2 to $DIRPATH-backup-$BACKUP_DIR." 2>&1 | tee -a "$LOG"
+            
+            cp -r config/"$DIR2" ~/.config/"$DIR2"
+            if [ $? -eq 0 ]; then
+              echo -e "${OK} - Replaced $DIR2 with new configuration." 2>&1 | tee -a "$LOG"
+            else
+              echo "${ERROR} - Failed to copy $DIR2." 2>&1 | tee -a "$LOG"
+              exit 1
+            fi
+          else
+            echo "${ERROR} - Failed to back up $DIR2." 2>&1 | tee -a "$LOG"
+            exit 1
+          fi
+          break
+          ;;
+        [Nn]* )
+          # Skip the directory
+          echo -e "${NOTE} - Skipping ${ORANGE}$DIR2${RESET} " 2>&1 | tee -a "$LOG"
+          break
+          ;;
+        * )
+          echo -e "${WARN} - Invalid choice. Please enter Y or N."
+          ;;
+      esac
+    done
+  else
+    # Copy new config if directory does not exist
+    cp -r config/"$DIR2" ~/.config/"$DIR2" 2>&1 | tee -a "$LOG"
+    if [ $? -eq 0 ]; then
+      echo "${OK} - Copy completed for ${YELLOW}$DIR2${RESET}" 2>&1 | tee -a "$LOG"
+    else
+      echo "${ERROR} - Failed to copy ${YELLOW}$DIR2${RESET}" 2>&1 | tee -a "$LOG"
+      exit 1
+    fi
+  fi
+done
+
+printf "\n%.0s" {1..1}
 
 # copying Wallpapers
 mkdir -p ~/Pictures/wallpapers
-cp -r wallpapers ~/Pictures/ && { echo "${OK}Copy completed!"; } || { echo "${ERROR} Failed to copy wallpapers."; exit 1; } 2>&1 | tee -a "$LOG"
+cp -r wallpapers ~/Pictures/ && { echo "${OK} some wallpapers compied!"; } || { echo "${ERROR} Failed to copy some wallpapers."; exit 1; } 2>&1 | tee -a "$LOG"
  
 # Set some files as executable
 chmod +x ~/.config/hypr/scripts/* 2>&1 | tee -a "$LOG"
@@ -368,17 +437,23 @@ chmod +x ~/.config/hypr/UserScripts/* 2>&1 | tee -a "$LOG"
 chmod +x ~/.config/hypr/initial-boot.sh 2>&1 | tee -a "$LOG"
 printf "\n"
 
-# Detect machine type and set Waybar configurations accordingly
+# Detect machine type and set waybar configurations accordingly
 if hostnamectl | grep -q 'Chassis: desktop'; then
     # Configurations for a desktop
     ln -sf "$waybar_config" "$HOME/.config/waybar/config" 2>&1 | tee -a "$LOG"
-    rm -r "$HOME/.config/waybar/configs/[TOP] Default Laptop" "$HOME/.config/waybar/configs/[BOT] Default Laptop" 2>&1 | tee -a "$LOG"
-    rm -r "$HOME/.config/waybar/configs/[TOP] Default Laptop_v2" "$HOME/.config/waybar/configs/[TOP] Default Laptop_v3" 2>&1 | tee -a "$LOG"
+    # Remove old configurations for desktop
+    rm -rf "$HOME/.config/waybar/configs/[TOP] Default Laptop" \
+           "$HOME/.config/waybar/configs/[BOT] Default Laptop" \
+           "$HOME/.config/waybar/configs/[TOP] Default Laptop_v2" \
+           "$HOME/.config/waybar/configs/[TOP] Default Laptop_v3" 2>&1 | tee -a "$LOG" || true
 else
     # Configurations for a laptop or any system other than desktop
     ln -sf "$waybar_config_laptop" "$HOME/.config/waybar/config" 2>&1 | tee -a "$LOG"
-    rm -r "$HOME/.config/waybar/configs/[TOP] Default" "$HOME/.config/waybar/configs/[BOT] Default" 2>&1 | tee -a "$LOG"
-    rm -r "$HOME/.config/waybar/configs/[TOP] Default_v2" "$HOME/.config/waybar/configs/[TOP] Default_v3" 2>&1 | tee -a "$LOG"
+    # Remove old configurations for laptop
+    rm -rf "$HOME/.config/waybar/configs/[TOP] Default" \
+           "$HOME/.config/waybar/configs/[BOT] Default" \
+           "$HOME/.config/waybar/configs/[TOP] Default_v2" \
+           "$HOME/.config/waybar/configs/[TOP] Default_v3" 2>&1 | tee -a "$LOG" || true
 fi
 
 # additional wallpapers
@@ -411,7 +486,7 @@ while true; do
       fi
       ;;
   [Nn])
-      echo "You chose not to download additional wallpapers." 2>&1 | tee -a "$LOG"
+      echo "${NOTE} You chose not to download additional wallpapers." 2>&1 | tee -a "$LOG"
       break
       ;;
   *)
@@ -428,6 +503,6 @@ wallust run -s $wallpaper 2>&1 | tee -a "$LOG"
 
 
 printf "\n%.0s" {1..2}
-printf "\n${OK} Copy Completed!\n\n\n"
+printf "\n${OK} KooL's Hyprland-Dots Loaded & Ready!!!\n\n\n"
 printf "${ORANGE} ATTENTION!!!! \n"
 printf "${ORANGE} YOU NEED to logout and re-login or reboot to avoid issues\n\n"
