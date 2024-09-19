@@ -4,7 +4,7 @@
 clear
 
 wallpaper=$HOME/.config/hypr/wallpaper_effects/.wallpaper_modified
-waybar_style="$HOME/.config/waybar/style/[Colored] Chroma Glow.css"
+waybar_style="$HOME/.config/waybar/style/[Dark] Latte-Wallust combined.css"
 waybar_config="$HOME/.config/waybar/configs/[TOP] Default_v3"
 waybar_config_laptop="$HOME/.config/waybar/configs/[TOP] Default Laptop_v3" 
 
@@ -333,8 +333,6 @@ printf "\n"
 # Copy Config Files #
 set -e # Exit immediately if a command exits with a non-zero status.
 
-printf "${NOTE} - Copying dotfiles first part\n"
-
 # Function to create a unique backup directory name with month, day, hours, and minutes
 get_backup_dirname() {
   local timestamp
@@ -342,61 +340,8 @@ get_backup_dirname() {
   echo "back-up_${timestamp}"
 }
 
-# Check if the config directory exists
-if [ ! -d "config" ]; then
-  echo "${ERROR} - The 'config' directory does not exist."
-  exit 1
-fi
 
-DIR="
-  btop
-  cava
-  hypr
-  Kvantum
-  qt5ct
-  qt6ct
-  swappy
-  wallust
-  wlogout
-"
-
-for DIR_NAME in $DIR; do
-  DIRPATH=~/.config/"$DIR_NAME"
-  
-  # Backup the existing directory if it exists
-  if [ -d "$DIRPATH" ]; then
-    echo -e "${NOTE} - Config for $DIR_NAME found, attempting to back up."
-    BACKUP_DIR=$(get_backup_dirname)
-    
-    # Backup the existing directory
-    mv "$DIRPATH" "$DIRPATH-backup-$BACKUP_DIR" 2>&1 | tee -a "$LOG"
-    if [ $? -eq 0 ]; then
-      echo -e "${NOTE} - Backed up $DIR_NAME to $DIRPATH-backup-$BACKUP_DIR."
-    else
-      echo "${ERROR} - Failed to back up $DIR_NAME."
-      exit 1
-    fi
-  fi
-  
-  # Copy the new config
-  if [ -d "config/$DIR_NAME" ]; then
-    cp -r "config/$DIR_NAME" ~/.config/"$DIR_NAME" 2>&1 | tee -a "$LOG"
-    if [ $? -eq 0 ]; then
-      echo "${OK} - Copy of config for $DIR_NAME completed!"
-    else
-      echo "${ERROR} - Failed to copy $DIR_NAME."
-      exit 1
-    fi
-  else
-    echo "${ERROR} - Directory config/$DIR_NAME does not exist to copy."
-    exit 1
-  fi
-done
-
-printf "\n"
-
-printf "${NOTE} - copying dotfiles second part\n"
-
+printf "${NOTE} - copying dotfiles first part\n"
 # Config directories which will ask the user whether to replace or not
 DIRS="
   ags 
@@ -457,6 +402,61 @@ for DIR2 in $DIRS; do
 done
 
 printf "\n%.0s" {1..1}
+
+printf "${NOTE} - Copying dotfiles second part\n"
+
+# Check if the config directory exists
+if [ ! -d "config" ]; then
+  echo "${ERROR} - The 'config' directory does not exist."
+  exit 1
+fi
+
+DIR="
+  btop
+  cava
+  hypr
+  Kvantum
+  qt5ct
+  qt6ct
+  swappy
+  wallust
+  wlogout
+"
+
+for DIR_NAME in $DIR; do
+  DIRPATH=~/.config/"$DIR_NAME"
+  
+  # Backup the existing directory if it exists
+  if [ -d "$DIRPATH" ]; then
+    echo -e "${NOTE} - Config for $DIR_NAME found, attempting to back up."
+    BACKUP_DIR=$(get_backup_dirname)
+    
+    # Backup the existing directory
+    mv "$DIRPATH" "$DIRPATH-backup-$BACKUP_DIR" 2>&1 | tee -a "$LOG"
+    if [ $? -eq 0 ]; then
+      echo -e "${NOTE} - Backed up $DIR_NAME to $DIRPATH-backup-$BACKUP_DIR."
+    else
+      echo "${ERROR} - Failed to back up $DIR_NAME."
+      exit 1
+    fi
+  fi
+  
+  # Copy the new config
+  if [ -d "config/$DIR_NAME" ]; then
+    cp -r "config/$DIR_NAME" ~/.config/"$DIR_NAME" 2>&1 | tee -a "$LOG"
+    if [ $? -eq 0 ]; then
+      echo "${OK} - Copy of config for $DIR_NAME completed!"
+    else
+      echo "${ERROR} - Failed to copy $DIR_NAME."
+      exit 1
+    fi
+  else
+    echo "${ERROR} - Directory config/$DIR_NAME does not exist to copy."
+    exit 1
+  fi
+done
+
+printf "\n"
 
 # copying Wallpapers
 mkdir -p ~/Pictures/wallpapers
