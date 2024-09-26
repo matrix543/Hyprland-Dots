@@ -8,6 +8,7 @@
 	/* set font-size to 100% if font scaling is set to 1.00 using nwg-look */
 	font-size: 97%;
 	font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
+	margin: 0 4px;
 }
 
 @import "../waybar/style/catppuccin-themes/mocha.css";
@@ -16,8 +17,9 @@ window#waybar {
   	transition-property: background-color;
   	transition-duration: 0.5s;
   	background: transparent;
-  	border-radius: 10px;
+	border-radius: 10px;
 }
+
 
 window#waybar.hidden {
   	opacity: 0.2;
@@ -37,8 +39,8 @@ window#waybar.empty #window {
 	text-shadow: none;
     padding: 0px;
     border-radius: 9px;
-    padding-left: 4px;
-    padding-right: 4px;
+    padding-left: 2px;
+    padding-right: 2px;
     animation: gradient_f 20s ease-in infinite;
     transition: all 0.5s cubic-bezier(.55,-0.68,.48,1.682);
 }
@@ -64,7 +66,7 @@ window#waybar.empty #window {
 	color: @mauve;
   	border-radius: 10px;
     padding-left: 8px;
-    padding-right: 8px;
+    padding-right: 8px; 
     animation: gradient_f 20s ease-in infinite;
     transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
 }
@@ -113,10 +115,10 @@ window#waybar.empty #window {
 #taskbar button,
 #taskbar,
 #temperature,
-#tray,
+/*#tray,*/
 #window,
 #wireplumber,
-#workspaces,
+/*#workspaces, */
 #custom-backlight,
 #custom-browser,
 #custom-cava_mviz,
@@ -152,6 +154,7 @@ window#waybar.empty #window {
 	padding-right: 6px;
 	padding-left: 6px;
 }
+
 /*-----Indicators----*/
 #custom-hypridle.notactive,
 #idle_inhibitor.activated {
@@ -208,6 +211,10 @@ window#waybar.empty #window {
 #temperature.critical {
   background-color: @red;
 }
+#tray{
+padding: 0 0px;
+margin: 0 0px;
+}
 
 #tray > .passive {
   -gtk-icon-effect: dim;
@@ -263,7 +270,7 @@ window#waybar.empty #window {
   color: @mauve;
 }
 
-#mpris {
+#mpris,#custom-crypto {
   color:@lavender;
 }
 

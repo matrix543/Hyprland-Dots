@@ -14,17 +14,11 @@ SCRIPTSDIR="$HOME/.config/hypr/scripts"
 
 # variables
 focused_monitor=$(hyprctl monitors | awk '/^Monitor/{name=$2} /focused: yes/{print name}')
-# swww transition config
-#FPS=60
-#TYPE="any"
-#DURATION=2
-#BEZIER=".43,1.19,1,.4"
-#SWWW_PARAMS="--transition-fps $FPS --transition-type $TYPE --transition-duration $DURATION"
 
 # Retrieve image files using null delimiter to handle spaces in filenames
-mapfile -d '' PICS < <(find "${wallDIR}" -type f \( -iname "*.mp4" -o -iname "*.webm" \) -print0)
+mapfile -d '' VIDS < <(find "${wallDIR}" -type f \( -iname "*.mp4" -o -iname "*.webm" \) -print0)
 
-RANDOM_VID="${PICS[$((RANDOM % ${#PICS[@]}))]}"
+RANDOM_VID="${VIDS[$((RANDOM % ${#VIDS[@]}))]}"
 RANDOM_PIC_NAME=". random"
 
 # Rofi command
@@ -33,7 +27,7 @@ rofi_command="rofi -i -show -dmenu -config ~/.config/rofi/config-wallpaper.rasi"
 # Sorting Wallpapers
 menu() {
   # Sort the PICS array
-  IFS=$'\n' sorted_options=($(sort <<<"${PICS[*]}"))
+  IFS=$'\n' sorted_options=($(sort <<<"${VIDS[*]}"))
   
   # Place ". random" at the beginning with the random picture as an icon
   
@@ -80,14 +74,14 @@ main() {
     	sleep 0.5
     	"$SCRIPTSDIR/WallustSwww.sh"
     	sleep 0.2
-    	##"$SCRIPTSDIR/Refresh.sh"
+    	"$SCRIPTSDIR/Refresh.sh"
     	exit 0
   fi
 
   # Find the index of the selected file
   pic_index=-1
-  for i in "${!PICS[@]}"; do
-    filename=$(basename "${PICS[$i]}")
+  for i in "${!VIDS[@]}"; do
+    filename=$(basename "${VIDS[$i]}")
     
     if [[ "$filename" == "$choice"* ]]; then
       pic_index=$i
@@ -100,8 +94,8 @@ main() {
   	pkill mpvpaper
     fi
    
-    echo "${PICS[$pic_index]}.png" > $HOME/.cache/swww/$focused_monitor;
-    mpvpaper -p -o "no-audio loop load-scripts=no" "*" "${PICS[$pic_index]}";
+    echo "${VIDS[$pic_index]}.png" > $HOME/.cache/swww/$focused_monitor;
+    mpvpaper -p -o "no-audio loop load-scripts=no" "*" "${VIDS[$pic_index]}";
     
   else
     echo "Image not found."
@@ -122,4 +116,3 @@ sleep 0.5
 
 sleep 0.5
 "$SCRIPTSDIR/Refresh.sh"
-

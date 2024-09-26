@@ -31,7 +31,14 @@
 		"disk",
 	]
 },
-
+"group/powermenu": {
+	"orientation": "inherit",
+	"modules": [
+		"bluetooth",
+		"custom/lock",
+		"custom/power",
+	]
+},
 "group/mobo_drawer": {
 	"orientation": "inherit",
 	"drawer": {
