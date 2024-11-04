@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="GtkMenu" id="menu">
+    <child>
+		<object class="GtkMenuItem" id="on">
+			<property name="label">lights on</property>
+        </object>
+	</child>
+	<child>
+        <object class="GtkMenuItem" id="off">
+			<property name="label">lights off</property>
+        </object>
+	</child>
+	
+	<child>
+      		<object class="GtkSeparatorMenuItem" id="delimiter1"/>
+	</child>
+        
+	<child>
+        	<object class="GtkMenuItem" id="scene-1">
+			<property name="label">Scene 1</property>
+        	</object>
+    	</child>
+    	<child>
+		<object class="GtkMenuItem" id="scene-2">
+			<property name="label">Scene 2</property>
+		</object>
+    	</child>
+    	<child>
+		<object class="GtkMenuItem" id="scene-3">
+			<property name="label">Scene 3</property>
+		</object>
+    	</child>
+	<child>
+		<object class="GtkMenuItem" id="scene-4">
+			<property name="label">Scene 4</property>
+		</object>
+    	</child>
+		
+	<child>
+		<object class="GtkMenuItem" id="scene-5">
+			<property name="label">Scene 5</property>
+		</object>
+    	</child>
+	
+	<child>
+		<object class="GtkMenuItem" id="scene-6">
+			<property name="label">Scene 6</property>
+		</object>
+    	</child>
+		
+  </object>
+</interface>

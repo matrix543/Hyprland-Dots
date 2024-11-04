@@ -5,6 +5,23 @@
 /* Custom Modules like weather browser, tty, file manager at the beginning */
 
 {
+"custom/hue": {
+    "format" : "",
+    //"return-type": "json",
+    "tooltip": false,
+    "menu": "on-click",
+    "menu-file": "$HOME/.config/waybar/hue_menu.xml",
+    "menu-actions": {
+        "on": "$HOME/.config/hypr/UserScripts/hue/hue.py lights on",
+        "off": "$HOME/.config/hypr/UserScripts/hue/hue.py lights off",
+	"scene-1": "$HOME/.config/hypr/UserScripts/hue/hue.py scenes 0", 
+	"scene-2": "$HOME/.config/hypr/UserScripts/hue/hue.py scenes 1",
+	"scene-3": "$HOME/.config/hypr/UserScripts/hue/hue.py scenes 2",
+	"scene-4": "$HOME/.config/hypr/UserScripts/hue/hue.py scenes 3",
+	"scene-5": "$HOME/.config/hypr/UserScripts/hue/hue.py scenes 4",
+	"scene-6": "$HOME/.config/hypr/UserScripts/hue/hue.py scenes 5",		
+    },
+},
 "custom/weather": {
 	"format": "{}",
 	"format-alt": "{alt}: {}",
