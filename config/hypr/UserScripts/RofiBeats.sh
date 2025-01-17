@@ -39,7 +39,7 @@ populate_local_music() {
 
 # Function for displaying notifications
 notification() {
-  notify-send -u normal -i "$iDIR/music.png" "Playing: $@"
+  notify-send -u normal -i "$iDIR/music.png" " Now Playing:" " $@"
 }
 
 # Main function for playing local music
@@ -69,7 +69,7 @@ play_local_music() {
 
 # Main function for shuffling local music
 shuffle_local_music() {
-  notification "Shuffle local music"
+  notification "Shuffle Play local music"
 
   # Play music in $mDIR on shuffle
   mpv --shuffle --loop-playlist --vid=no "$mDIR"
@@ -92,7 +92,13 @@ play_online_music() {
 }
 
 # Check if an online music process is running and send a notification, otherwise run the main function
-pkill mpv && notify-send -u low -i "$iDIR/music.png" "Music stopped" || {
+pkill mpv && notify-send -u low -i "$iDIR/music.png" " Music stopped" || {
+
+# Check if rofi is already running
+if pidof rofi > /dev/null; then
+  pkill rofi
+fi
+
 
 # Prompt the user to choose between local and online music
 user_choice=$(printf "Play from Online Stations\nPlay from Music Folder\nShuffle Play from Music Folder" | rofi -dmenu -config ~/.config/rofi/config-rofi-Beats-menu.rasi -p "Select music source")

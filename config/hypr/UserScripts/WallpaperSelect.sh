@@ -97,14 +97,14 @@ main() {
 # Check if rofi is already running
 if pidof rofi > /dev/null; then
   pkill rofi
-  sleep 1  # Allow some time for rofi to close
 fi
 
 main
 
-sleep 1.5
-"$SCRIPTSDIR/WallustSwww.sh"
+wait $!
+"$SCRIPTSDIR/WallustSwww.sh" &&
 
-sleep 0.5
+wait $!
+sleep 2
 "$SCRIPTSDIR/Refresh.sh"
 

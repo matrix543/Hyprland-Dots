@@ -24,7 +24,7 @@ pallete_light="light16"
 pkill swaybg
 
 # Initialize swww if needed
-swww query || swww-daemon
+swww query || swww-daemon --format xrgb
 
 # Set swww options
 swww="swww img"
@@ -48,7 +48,7 @@ update_theme_mode() {
 
 # Function to notify user
 notify_user() {
-    notify-send -u low -i "$notif" "Switching to $1 mode"
+    notify-send -u low -i "$notif" " Switching to" " $1 mode"
 }
 
 # Use sed to replace the palette setting in the wallust config file
@@ -109,6 +109,7 @@ else
 	sed -i '/^background /s/^background .*/background #dddddd/' "${kitty_conf}"
 	sed -i '/^cursor /s/^cursor .*/cursor #000000/' "${kitty_conf}"
 fi
+
 for pid in $(pidof kitty); do
     kill -SIGUSR1 "$pid"
 done
@@ -229,15 +230,23 @@ set_custom_gtk_theme "$next_mode"
 # Update theme mode for the next cycle
 update_theme_mode
 
-sleep 0.5
-# Run remaining scripts
-${SCRIPTSDIR}/WallustSwww.sh
-sleep 1
+
+${SCRIPTSDIR}/WallustSwww.sh &&
+
+# some process to kill
+_ps=(waybar rofi swaync ags swaybg)
+for _prs in "${_ps[@]}"; do
+    if pidof "${_prs}" >/dev/null; then
+        pkill "${_prs}"
+    fi
+done
+
+sleep 2
 ${SCRIPTSDIR}/Refresh.sh 
 
 sleep 0.3
-# Display notifications for theme and icon changes
-notify-send -u normal -i "$notif" "Themes in $next_mode Mode"
+# Display notifications for theme and icon changes 
+notify-send -u normal -i "$notif" " Themes switched to:" " $next_mode Mode"
 
 exit 0
 
