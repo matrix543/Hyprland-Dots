@@ -4,6 +4,7 @@
   font-weight: 800;
   font-size: 13px;
   min-height: 0;
+  margin: 0 2px;
 }
 
 window#waybar {
@@ -97,13 +98,6 @@ tooltip {
   margin-bottom: 0px;
 }
 
-#tray,
-#workspace{
-padding-left: 4px;
-padding-right: 4px;
-margin: 8px;
-}
-
 #custom-hue{
 padding-left: 0px;
 padding-right:4px;
@@ -134,13 +128,12 @@ padding-bottom: 4px;
 }
 
 .modules-left{
-border-radius:10px 4px 4px 10px;
+    border-radius:10px 4px 4px 10px;
 }
 
 .modules-right{
-border-radius:4px 10px 10px 4px;
+    border-radius:4px 10px 10px 4px;
 }
-
 
 #workspaces {
   /*background: rgba(40, 40, 40, 0.76); */
@@ -301,11 +294,3 @@ border-radius:4px 10px 10px 4px;
   padding-right: 14px; */
 }
 
-
-
-#app_drawer
-{
-padding-left: 8px;
-padding-right: 8px;
-
-}
