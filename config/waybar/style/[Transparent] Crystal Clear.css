@@ -27,7 +27,8 @@ window#waybar.empty #window {
    border: 0px;
    background-color: transparent;
 }
-	   
+
+#taskbar button,	   
 #workspaces button {
 	color: #6E6A86;
    	box-shadow: none;
@@ -99,6 +100,7 @@ window#waybar.empty #window {
 #custom-hint,
 #custom-hypridle,
 #custom-menu,
+#custom-playerctl,
 #custom-power_vertical,
 #custom-power,
 #custom-settings,
@@ -163,6 +165,7 @@ window#waybar.empty #window {
 	animation-direction: alternate;
 }
 
+#backlight-slider slider,
 #pulseaudio-slider slider {
 	min-width: 0px;
 	min-height: 0px;
@@ -172,6 +175,7 @@ window#waybar.empty #window {
 	box-shadow: none;
 }
 
+#backlight-slider trough,
 #pulseaudio-slider trough {
 	min-width: 80px;  
 	min-height: 10px; 
@@ -179,30 +183,9 @@ window#waybar.empty #window {
 	background-color: black;
 }
 
+#backlight-slider highlight,
 #pulseaudio-slider highlight {
 	min-height: 10px; 
-	border-radius: 5px;
-	background-color: wheat;
-}
-
-#backlight-slider slider {
-	min-width: 0px;
-	min-height: 0px;
-	opacity: 0;
-	background-image: none;
-	border: none;
-	box-shadow: none;
-}
-
-#backlight-slider trough {
-	min-width: 80px;  
-	min-height: 10px;
-	border-radius: 5px;
-	background-color: black;
-}
-
-#backlight-slider highlight {
-	min-width: 10px; 
 	border-radius: 5px;
 	background-color: wheat;
 }

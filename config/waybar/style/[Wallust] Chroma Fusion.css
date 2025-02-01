@@ -90,6 +90,7 @@ tooltip {
 #custom-hint,
 #custom-hypridle,
 #custom-menu,
+#custom-playerctl,
 #custom-power_vertical,
 #custom-power,
 #custom-settings,
@@ -197,6 +198,7 @@ tooltip {
     
 }
 
+#taskbar button,
 #workspaces button {
     margin: 1px 1px;
     border-radius: 15px;
@@ -209,6 +211,7 @@ tooltip {
     opacity:0.8;
 }
 
+#taskbar button.active,
 #workspaces button.active {
     color: #FFFFFF;
     background: @button-color;
@@ -225,6 +228,7 @@ tooltip {
     opacity:1.0;
 }
 
+#taskbar button:hover,
 #workspaces button:hover {
     color: #FFFFFF;
     background: @button-hover;
@@ -271,21 +275,6 @@ tooltip {
     }
 }
 
-#taskbar button.active {
-    background-color: rgb(47, 46, 46);
-	border-radius: 30px;
-    animation: gradient_f 20s ease-in infinite;
-    transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
-}
-
-#taskbar button:hover {
-    padding-left: 3px;
-    padding-right: 3px;
-	border-radius: 15px;
-    animation: gradient_f 20s ease-in infinite;
-    transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
-}
-
 #battery.critical:not(.charging) {
 	color: #f53c3c;
 	animation-name: blink;
@@ -295,6 +284,7 @@ tooltip {
 	animation-direction: alternate;
 }
 
+#backlight-slider slider,
 #pulseaudio-slider slider {
 	min-width: 0px;
 	min-height: 0px;
@@ -304,34 +294,16 @@ tooltip {
 	box-shadow: none;
 }
 
+#backlight-slider trough,
 #pulseaudio-slider trough {
 	min-width: 80px;
 	min-height: 5px;
 	border-radius: 5px;
 }
 
+#backlight-slider highlight,
 #pulseaudio-slider highlight {
 	min-height: 10px;
-	border-radius: 5px;
-}
-
-#backlight-slider slider {
-	min-width: 0px;
-	min-height: 0px;
-	opacity: 0;
-	background-image: none;
-	border: none;
-	box-shadow: none;
-}
-
-#backlight-slider trough {
-	min-width: 80px;
-	min-height: 10px;
-	border-radius: 5px;
-}
-
-#backlight-slider highlight {
-	min-width: 10px;
 	border-radius: 5px;
 }
 

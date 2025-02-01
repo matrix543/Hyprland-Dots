@@ -1,10 +1,9 @@
 //* ---- 💫 https://github.com/JaKooLit 💫 ---- *//
 /* Waybar Modules */
-{
-/* NOTE: hyprland-workspaces and Custom Modules on a separate files */
-/* Weather Temperature Modules as this is most like to change always. */
-// Result is of course easier to edit
 
+/* NOTE: hyprland-workspaces, Custom Modules, Custom Vertical & Groups on a separate files */
+
+{
 "temperature": {
 	"interval": 10,
 	"tooltip": true,
@@ -16,23 +15,6 @@
 	"critical-threshold": 82,
 	"format-critical": "{temperatureC}°C {icon}",
 	"format": "{temperatureC}°C {icon}",
-	"format-icons": [
-		"󰈸"
-	],
-	"on-click-right": "kitty --title nvtop sh -c 'nvtop'"
-},
-
-"temperature#vertical": {
-	"interval": 10,
-	"tooltip": true,
-	"hwmon-path": [
-		"/sys/class/hwmon/hwmon1/temp1_input",
-		"/sys/class/thermal/thermal_zone0/temp"
-	],
-	//"thermal-zone": 0,
-	"critical-threshold": 80,
-	"format-critical": "{icon}\n{temperatureC}°C",
-	"format": " {icon}",
 	"format-icons": [
 		"󰈸"
 	],
@@ -65,11 +47,13 @@
 	"on-scroll-down": "$HOME/.config/hypr/scripts/Brightness.sh --dec",
 	"smooth-scrolling-threshold": 1,
 },
+
 "backlight#2": {
   "device": "intel_backlight",
   "format": "{icon} {percent}%",
   "format-icons": ["", ""]
 },
+
 "battery": {
 	//"interval": 5,
 	"align": 0,
@@ -98,6 +82,7 @@
 	"on-click-middle": "$HOME/.config/hypr/scripts/ChangeBlur.sh",
 	"on-click-right": "$HOME/.config/hypr/scripts/Wlogout.sh",
 },
+
 "bluetooth": {
 	"format": " ",
 	"format-disabled": "󰂳",
@@ -108,6 +93,7 @@
 	"tooltip": true,
 	"on-click": "blueman-manager",
 },
+
 "clock": {
 	"interval": 1,
     //"format": " {:%I:%M %p}", // AM PM format
@@ -128,6 +114,7 @@
 		}
 	}
 },
+
 "actions": {
 	"on-click-right": "mode",
 	"on-click-forward": "tz_up",
@@ -135,17 +122,20 @@
 	"on-scroll-up": "shift_up",
 	"on-scroll-down": "shift_down"
 },
+
 "clock#2": {
     //"format": " {:%I:%M %p}", // AM PM format
     "format": "  {:%H:%M}", // 24H
     "format-alt": "{:%A  |  %H:%M  |  %e %B}",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
 },
+
 "clock#3": {
     //"format": "{:%I:%M %p - %d/%b}", //for AM/PM
     "format": "{:%H:%M - %d/%b}", // 24H
 	"tooltip": false
 },
+
 "clock#4": {
 	"interval": 60,
     //"format": "{:%B | %a %d, %Y | %I:%M %p}", // AM PM format
@@ -153,12 +143,14 @@
 	"format-alt": "{:%a %b %d, %G}",
 	"tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>",
 },
+
 "clock#5": {
     //"format": "{:%A, %I:%M %P}", // AM PM format
     "format": "{:%a %d | %H:%M}", // 24H
 	"format-alt": "{:%A, %d %B, %Y (%R)}",
 	"tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>",
 },
+
  "clock#miku": {
         "format": "{:%H:%M}",
         "tooltip-format": "{:%A, %d %B %Y}",
@@ -174,6 +166,7 @@
 	],
 	"on-click-right": "gnome-system-monitor",
 },
+
 "disk": {
 	"interval": 30,
 	//"format": "󰋊",
@@ -183,6 +176,7 @@
 	//"tooltip": true,
 	"tooltip-format": "{used} used out of {total} on {path} ({percentage_used}%)",
 },
+
 "hyprland/language": {
 	"format": "Lang: {}",
 	"format-en": "US",
@@ -190,10 +184,12 @@
 	"keyboard-name": "at-translated-set-2-keyboard",
 	"on-click": "hyprctl switchxkblayout $SET_KB next"
 },
+
 "hyprland/submap": {
 	"format": "<span style=\"italic\">  {}</span>", // Icon: expand-arrows-alt
 	"tooltip": false,
 },
+
 "hyprland/window": {
 	"format": "{title}",
 	"max-length": 20,
@@ -223,6 +219,7 @@
 		"deactivated": " ",
 	}
 },
+
 "keyboard-state": {
 	//"numlock": true,
 	"capslock": true,
@@ -235,6 +232,7 @@
 		"unlocked": ""
 	},
 },
+
 "memory": {
 	"interval": 10,
 	"format": "{used:0.1f}G 󰾆",
@@ -244,6 +242,7 @@
 	"tooltip-format": "{used:0.1f}GB/{total:0.1f}G",
 	"on-click-right": "kitty --title btop sh -c 'btop'"
 },
+
 "mpris": {
 	"interval": 10,
 	"format": "{player_icon}",	
@@ -278,6 +277,7 @@
 	///"ignored-players": ["mpv"],
 	"max-length": 30,
 },
+
 "network": {
 	"format": "{ifname}",
 	"format-wifi": "{icon}",
@@ -294,6 +294,7 @@
 	],
 	"on-click-right": "kitty nmtui"
 },
+
 "network#speed": {
 	"interval": 1,
 	"format": "{ifname}",
@@ -311,6 +312,7 @@
 		"󰤯", "󰤟", "󰤢", "󰤥", "󰤨"
 	]
 },
+
 "power-profiles-daemon": {
   "format": "{icon} ",
   "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
@@ -322,6 +324,7 @@
     "power-saver": ""
   }
 },
+
 "pulseaudio": {
 	"format": "{icon} {volume}%",
 	"format-bluetooth": "{icon} 󰂰 {volume}%",
@@ -348,6 +351,7 @@
 	"tooltip-format": "{icon} {desc} | {volume}%",
 	"smooth-scrolling-threshold": 1,
 },
+
 "pulseaudio#1": {
   "format": "{icon} {volume}%",
   "format-bluetooth": "{icon} {volume}%",
@@ -367,6 +371,7 @@
   "tooltip": true,
   "tooltip-format": "{icon} {desc} | {volume}%",
 },
+
 "pulseaudio#microphone": {
 	"format": "{format_source}",
 	"format-source": " {volume}%",
@@ -402,6 +407,7 @@
 		"", "", "󰕾", ""
 	],
 },
+
 "wlr/taskbar": {
 	"format": "{icon} {name}",
 	"icon-size": 16,
@@ -415,101 +421,6 @@
 		"kitty",
     "kitty-dropterm"
 		],
-},
-
-// Modules below are for vertical layout
-"backlight#vertical": {
-	"interval": 2,
-	"align": 0.35,
-	"rotate": 1,
-	"format": "{icon}",
-	//"format-icons": ["󰃞", "󰃟", "󰃠"],
-	"format-icons": [
-		"", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
-	],
-	"on-click": "",
-	"on-click-middle": "",
-	"on-click-right": "",
-	"on-update": "",
-	"on-scroll-up": "$HOME/.config/hypr/scripts/Brightness.sh --inc",
-	"on-scroll-down": "$HOME/.config/hypr/scripts/Brightness.sh --dec",
-	"smooth-scrolling-threshold": 1,
-	"tooltip-format": "{percent}%",
-},
-"clock#vertical": {
-	"format": "\n{:%H\n%M\n%S\n\n \n%d\n%m\n%y}",
-	"interval": 1,
-	//"format": "\n{:%I\n%M\n%p\n\n \n%d\n%m\n%y}",
-	"tooltip": true,
-	"tooltip-format": "{calendar}",
-	"calendar": {
-		"mode": "year",
-		"mode-mon-col": 3,
-		"format": {
-			"today": "<span color='#0dbc79'>{}</span>",
-		}
-	}
-},
-"cpu#vertical": {
-	"format": "󰍛\n{usage}%",
-	"interval": 1,
-	"on-click-right": "gnome-system-monitor",
-},
-"memory#vertical": {
-	"interval": 10,
-	"format": "󰾆\n{percentage}%",
-	"format-alt": "󰾆\n{used:0.1f}G",
-	"format-alt-click": "click",
-	"tooltip": true,
-	"tooltip-format": "{used:0.1f}GB/{total:0.1f}G",
-	"on-click-right": "kitty --title btop sh -c 'btop'",
-},
-"pulseaudio#vertical": {
-	"format": "{icon}",
-	"format-bluetooth": "󰂰",
-	"format-muted": "󰖁",
-	"format-icons": {
-		"headphone": "",
-		"hands-free": "",
-		"headset": "",
-		"phone": "",
-		"portable": "",
-		"car": "",
-		"default": [
-			"", "", "󰕾", ""
-		],
-		"tooltip-format": "{icon} {desc} | {volume}%",
-		"ignored-sinks": [
-			"Easy Effects Sink"
-		],
-	},
-	"scroll-step": 5.0,
-	"on-click": "$HOME/.config/hypr/scripts/Volume.sh --toggle",
-	"on-click-right": "pavucontrol -t 3",
-	"on-scroll-up": "$HOME/.config/hypr/scripts/Volume.sh --inc",
-	"on-scroll-down": "$HOME/.config/hypr/scripts/Volume.sh --dec",
-	"tooltip-format": "{icon} {desc} | {volume}%",
-	"smooth-scrolling-threshold": 1,
-},
-"pulseaudio#microphone_vertical": {
-	"format": "{format_source}",
-	"format-source": "󰍬",
-	"format-source-muted": "󰍭",
-	"on-click-right": "pavucontrol",
-	"on-click": "$HOME/.config/hypr/scripts/Volume.sh --toggle-mic",
-	"on-scroll-up": "$HOME/.config/hypr/scripts/Volume.sh --mic-inc",
-	"on-scroll-down": "$HOME/.config/hypr/scripts/Volume.sh --mic-dec",
-	"max-volume": 100,
-	"tooltip": true,
-	"tooltip-format": "{source_desc} | {source_volume}%",
-},
-"custom/power_vertical": {
-	"format": "⏻",
-	"exec": "echo ; echo 󰟡 power // blur",
-	"on-click": "$HOME/.config/hypr/scripts/Wlogout.sh",
-	"on-click-right": "$HOME/.config/hypr/scripts/ChangeBlur.sh",
-	"interval": 86400, // once every day
-	"tooltip": true,
 },
 
 }

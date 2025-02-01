@@ -3,9 +3,9 @@
 
 clear
 wallpaper=$HOME/.config/hypr/wallpaper_effects/.wallpaper_modified
-waybar_style="$HOME/.config/waybar/style/[Dark] Latte-Wallust combined.css"
-waybar_config="$HOME/.config/waybar/configs/[TOP] Default_v4"
-waybar_config_laptop="$HOME/.config/waybar/configs/[TOP] Default Laptop_v4" 
+waybar_style="$HOME/.config/waybar/style/[Extra] Modern-Combined - Transparent.css"
+waybar_config="$HOME/.config/waybar/configs/[TOP] Default_v5"
+waybar_config_laptop="$HOME/.config/waybar/configs/[TOP] Default Laptop_v5" 
 
 # Check if running as root. If root, script will exit
 if [[ $EUID -eq 0 ]]; then
@@ -24,9 +24,10 @@ OK="$(tput setaf 2)[OK]$(tput sgr0)"
 ERROR="$(tput setaf 1)[ERROR]$(tput sgr0)"
 NOTE="$(tput setaf 3)[NOTE]$(tput sgr0)"
 INFO="$(tput setaf 4)[INFO]$(tput sgr0)"
-WARN="$(tput setaf 5)[WARN]$(tput sgr0)"
+WARN="$(tput setaf 1)[WARN]$(tput sgr0)"
 CAT="$(tput setaf 6)[ACTION]$(tput sgr0)"
-ORANGE=$(tput setaf 166)
+MAGENTA=$(tput setaf 5)
+WARNING=$(tput setaf 1)
 YELLOW=$(tput setaf 3)
 BLUE=$(tput setaf 4) 
 RESET=$(tput sgr0)
@@ -113,7 +114,7 @@ layout=$(detect_layout)
 if [ "$layout" = "(unset)" ]; then
   while true; do
     printf "\n%.0s" {1..1}
-    print_color $ORANGE "
+    print_color $WARNING "
 █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█
         STOP AND READ
 █▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█
@@ -149,7 +150,7 @@ printf "${NOTE} Detecting keyboard layout to prepare proper Hyprland Settings\n\
 
 # Prompt the user to confirm whether the detected layout is correct
 while true; do
-  printf "${INFO} Current keyboard layout is ${ORANGE}$layout${RESET}\n"
+  printf "${INFO} Current keyboard layout is ${MAGENTA}$layout${RESET}\n"
   read -p "${CAT} Is this correct? [y/n] " keyboard_layout
 
   case $keyboard_layout in
@@ -158,11 +159,11 @@ while true; do
         awk -v layout="$layout" '/kb_layout/ {$0 = "  kb_layout = " layout} 1' config/hypr/UserConfigs/UserSettings.conf > temp.conf
         mv temp.conf config/hypr/UserConfigs/UserSettings.conf
         
-        echo "${NOTE} kb_layout ${ORANGE}$layout${RESET} configured in settings." 2>&1 | tee -a "$LOG"
+        echo "${NOTE} kb_layout ${MAGENTA}$layout${RESET} configured in settings." 2>&1 | tee -a "$LOG"
         break ;;
     [nN])
         printf "\n%.0s" {1..2}
-        print_color $ORANGE "
+        print_color $WARNING "
 █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█
         STOP AND READ
 █▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█
@@ -208,6 +209,11 @@ if command -v blueman-applet >/dev/null 2>&1; then
     sed -i '/exec-once = blueman-applet &/s/^#//' config/hypr/UserConfigs/Startup_Apps.conf
 fi
 
+# Check if ags is installed and add ags on Startup
+if command -v ags >/dev/null 2>&1; then
+    sed -i '/exec-once = ags &/s/^#//' config/hypr/UserConfigs/Startup_Apps.conf
+fi
+
 printf "\n"
 
 # Checking if neovim or vim is installed and offer user if they want to make as default editor
@@ -215,14 +221,14 @@ printf "\n"
 update_editor() {
     local editor=$1
     sed -i "s/#env = EDITOR,.*/env = EDITOR,$editor #default editor/" config/hypr/UserConfigs/ENVariables.conf
-    echo "${OK} Default editor set to ${ORANGE}$editor${RESET}." 2>&1 | tee -a "$LOG"
+    echo "${OK} Default editor set to ${MAGENTA}$editor${RESET}." 2>&1 | tee -a "$LOG"
 }
 
 EDITOR_SET=0
 # Check for neovim if installed
 if command -v nvim &> /dev/null; then
-    printf "${INFO} ${ORANGE}neovim${RESET} is detected as installed\n"
-    read -p "${CAT} Do you want to make ${ORANGE}neovim${RESET} the default editor? (y/N): " EDITOR_CHOICE
+    printf "${INFO} ${MAGENTA}neovim${RESET} is detected as installed\n"
+    read -p "${CAT} Do you want to make ${MAGENTA}neovim${RESET} the default editor? (y/N): " EDITOR_CHOICE
     if [[ "$EDITOR_CHOICE" == "y" ]]; then
         update_editor "nvim"
         EDITOR_SET=1
@@ -233,8 +239,8 @@ printf "\n"
 
 # Check for vim if installed, but only if neovim wasn't chosen
 if [[ "$EDITOR_SET" -eq 0 ]] && command -v vim &> /dev/null; then
-    printf "${INFO} ${ORANGE}vim${RESET} is detected as installed\n"
-    read -p "${CAT} Do you want to make ${ORANGE}vim${RESET} the default editor? (y/N): " EDITOR_CHOICE
+    printf "${INFO} ${MAGENTA}vim${RESET} is detected as installed\n"
+    read -p "${CAT} Do you want to make ${MAGENTA}vim${RESET} the default editor? (y/N): " EDITOR_CHOICE
     if [[ "$EDITOR_CHOICE" == "y" ]]; then
         update_editor "vim"
         EDITOR_SET=1
@@ -242,14 +248,14 @@ if [[ "$EDITOR_SET" -eq 0 ]] && command -v vim &> /dev/null; then
 fi
 
 if [[ "$EDITOR_SET" -eq 0 ]]; then
-    echo "${ORANGE} Neither neovim nor vim is installed or selected as default."
+    echo "${YELLOW} Neither neovim nor vim is installed or selected as default." 2>&1 | tee -a "$LOG"
 fi
 
 printf "\n"
 
 # Action to do for better rofi and kitty appearance
 while true; do
-  echo "$ORANGE Select monitor resolution to properly configure appearance and fonts:"
+  echo "$MAGENTA Select monitor resolution to properly configure appearance and fonts:"
   echo "$YELLOW   -- Enter 1. for monitor res 1440p or less (< 1440p)"
   echo "$YELLOW   -- Enter 2. for monitors res higher than 1440p (≥ 1440p)"
   read -p "$CAT Enter the number of your choice (1 or 2): " res_choice
@@ -289,7 +295,7 @@ printf "\n"
 
 # Ask whether to change to 12hr format
 while true; do
-  echo -e "$ORANGE By default, configs are in 24H format."
+  echo -e "$MAGENTA By default, configs are in 24H format."
   read -p "$CAT Do you want to change to 12H format (AM/PM)? (y/n): " answer
 
   # Convert the answer to lowercase for comparison
@@ -298,31 +304,34 @@ while true; do
 # Check if the answer is valid
 if [[ "$answer" == "y" ]]; then
     # Modify waybar config if 12hr is selected
+    
     # Clock 1
-    sed -i 's#^\(\s*\)//"format": " {:%I:%M %p}", // AM PM format#\1"format": " {:%I:%M %p}", // AM PM format#' config/waybar/Modules 2>&1 | tee -a "$LOG"
-    sed -i 's#^\(\s*\) "format": " {:%H:%M:%S}", // 24H#\1// "format": " {:%H:%M:%S}", // 24H#' config/waybar/Modules 2>&1 | tee -a "$LOG"
+    sed -i 's#^\(\s*\)//\("format": " {:%I:%M %p}",\) #\1\2 #g' config/waybar/Modules 2>&1 | tee -a "$LOG"
+    sed -i 's#^\(\s*\)\("format": " {:%H:%M:%S}",\) #\1//\2#g' config/waybar/Modules 2>&1 | tee -a "$LOG"
     
     # Clock 2
-    sed -i 's#^\(\s*\) "format": "  {:%H:%M}", // 24H#\1// "format": "  {:%H:%M}", // 24H#' config/waybar/Modules 2>&1 | tee -a "$LOG"
+    sed -i 's#^\(\s*\)\("format": "  {:%H:%M}",\) #\1//\2#g' config/waybar/Modules 2>&1 | tee -a "$LOG"
     
     # Clock 3
-    sed -i 's#^\(\s*\)//"format": "{:%I:%M %p - %d/%b}", //for AM/PM#\1"format": "{:%I:%M %p - %d/%b}", //for AM/PM#' config/waybar/Modules 2>&1 | tee -a "$LOG"
-    sed -i 's#^\(\s*\) "format": "{:%H:%M - %d/%b}", // 24H#\1// "format": "{:%H:%M - %d/%b}", // 24H#' config/waybar/Modules 2>&1 | tee -a "$LOG"
+    sed -i 's#^\(\s*\)//\("format": "{:%I:%M %p - %d/%b}",\) #\1\2#g' config/waybar/Modules 2>&1 | tee -a "$LOG"
+    sed -i 's#^\(\s*\)\("format": "{:%H:%M - %d/%b}",\) #\1//\2#g' config/waybar/Modules 2>&1 | tee -a "$LOG"
     
     # Clock 4
-    sed -i 's#^\(\s*\)//"format": "{:%B | %a %d, %Y | %I:%M %p}", // AM PM format#\1"format": "{:%B | %a %d, %Y | %I:%M %p}", // AM PM format#' config/waybar/Modules 2>&1 | tee -a "$LOG"
-    sed -i 's#^\(\s*\) "format": "{:%B | %a %d, %Y | %H:%M}", // 24H#\1// "format": "{:%B | %a %d, %Y | %H:%M}", // 24H#' config/waybar/Modules 2>&1 | tee -a "$LOG"
+    sed -i 's#^\(\s*\)//\("format": "{:%B | %a %d, %Y | %I:%M %p}",\) #\1\2#g' config/waybar/Modules 2>&1 | tee -a "$LOG"
+    sed -i 's#^\(\s*\)\("format": "{:%B | %a %d, %Y | %H:%M}",\) #\1//\2#g' config/waybar/Modules 2>&1 | tee -a "$LOG"
 
     # Clock 5
-    sed -i 's#^\(\s*\)//"format": "{:%A, %I:%M %P}", // AM PM format#\1"format": "{:%A, %I:%M %P}", // AM PM format#' config/waybar/Modules 2>&1 | tee -a "$LOG"
-    sed -i 's#^\(\s*\) "format": "{:%a %d | %H:%M}", // 24H#\1// "format": "{:%a %d | %H:%M}", // 24H#' config/waybar/Modules 2>&1 | tee -a "$LOG"
-            
+    sed -i 's#^\(\s*\)//\("format": "{:%A, %I:%M %P}",\) #\1\2#g' config/waybar/Modules 2>&1 | tee -a "$LOG"
+    sed -i 's#^\(\s*\)\("format": "{:%a %d | %H:%M}",\) #\1//\2#g' config/waybar/Modules 2>&1 | tee -a "$LOG"
+       
     # for hyprlock
     sed -i 's/^\s*text = cmd\[update:1000\] echo "\$(date +"%H")"/# &/' config/hypr/hyprlock.conf 2>&1 | tee -a "$LOG"
     sed -i 's/^\(\s*\)# *text = cmd\[update:1000\] echo "\$(date +"%I")" #AM\/PM/\1    text = cmd\[update:1000\] echo "\$(date +"%I")" #AM\/PM/' config/hypr/hyprlock.conf 2>&1 | tee -a "$LOG"
 
     sed -i 's/^\s*text = cmd\[update:1000\] echo "\$(date +"%S")"/# &/' config/hypr/hyprlock.conf 2>&1 | tee -a "$LOG"
     sed -i 's/^\(\s*\)# *text = cmd\[update:1000\] echo "\$(date +"%S %p")" #AM\/PM/\1    text = cmd\[update:1000\] echo "\$(date +"%S %p")" #AM\/PM/' config/hypr/hyprlock.conf 2>&1 | tee -a "$LOG"
+    
+    echo "${OK} 12H format set on waybar clocks succesfully." 2>&1 | tee -a "$LOG"
 
     # for SDDM (simple-sddm)
     sddm_folder="/usr/share/sddm/themes/simple-sddm"
@@ -358,7 +367,7 @@ done
 printf "\n"
 
 # Check if the user wants to disable Rainbow borders
-printf "${ORANGE} By default, Rainbow Borders animation is enabled.\n"
+printf "${MAGENTA} By default, Rainbow Borders animation is enabled.\n"
 printf "${WARN} - However, this uses a bit more CPU and Memory resources.\n"
 
 read -p "${CAT} Do you want to disable Rainbow Borders animation? (y/N): " border_choice
@@ -366,7 +375,7 @@ if [[ "$border_choice" =~ ^[Yy]$ ]]; then
     mv config/hypr/UserScripts/RainbowBorders.sh config/hypr/UserScripts/RainbowBorders.bak.sh
     
     sed -i '/exec-once = \$UserScripts\/RainbowBorders.sh \&/s/^/#/' config/hypr/UserConfigs/Startup_Apps.conf
-    sed -i '/  animation = borderangle, 1, 180, liner, loop/s/^/#/' config/hypr/UserConfigs/UserDecorAnimations.conf
+    sed -i '/  animation = borderangle, 1, 180, liner, loop/s/^/#/' config/hypr/UserConfigs/UserAnimations.conf
     
     echo "${OK} Rainbow borders is now disabled." 2>&1 | tee -a "$LOG"
 else
@@ -404,11 +413,11 @@ for DIR2 in $DIRS; do
   
   if [ -d "$DIRPATH" ]; then
     while true; do
-      read -p "${CAT} ${ORANGE}$DIR2${RESET} config found in ~/.config/ Do you want to replace ${ORANGE}$DIR2${RESET} config? (y/n): " DIR1_CHOICE
+      printf "\n${INFO} Found ${MAGENTA}$DIR2${RESET} config found in ~/.config/\n"
+      read -p "${CAT} Do you want to replace ${MAGENTA}$DIR2${RESET} config? (y/n): " DIR1_CHOICE
       case "$DIR1_CHOICE" in
         [Yy]* )
           BACKUP_DIR=$(get_backup_dirname)
-          echo -e "${NOTE} - Config for ${YELLOW}$DIR2${RESET} found, attempting to back up."
           
           mv "$DIRPATH" "$DIRPATH-backup-$BACKUP_DIR" 2>&1 | tee -a "$LOG"
           if [ $? -eq 0 ]; then
@@ -429,7 +438,7 @@ for DIR2 in $DIRS; do
           ;;
         [Nn]* )
           # Skip the directory
-          echo -e "${NOTE} - Skipping ${ORANGE}$DIR2${RESET} " 2>&1 | tee -a "$LOG"
+          echo -e "${NOTE} - Skipping ${MAGENTA}$DIR2${RESET} " 2>&1 | tee -a "$LOG"
           break
           ;;
         * )
@@ -476,7 +485,7 @@ for DIR_NAME in $DIR; do
   
   # Backup the existing directory if it exists
   if [ -d "$DIRPATH" ]; then
-    echo -e "${NOTE} - Config for ${ORANGE}$DIR_NAME${RESET} found, attempting to back up."
+    echo -e "\n${NOTE} - Config for ${MAGENTA}$DIR_NAME${RESET} found, attempting to back up."
     BACKUP_DIR=$(get_backup_dirname)
     
     # Backup the existing directory
@@ -513,7 +522,8 @@ FILES_TO_RESTORE=(
   "Laptops.conf"
   "Monitors.conf"
   "Startup_Apps.conf"
-  "UserDecorAnimations.conf"
+  "UserDecorations.conf"
+  "UserAnimations.conf"
   "UserKeybinds.conf"
   "UserSettings.conf"
   "WindowRules.conf"
@@ -530,7 +540,7 @@ if [ -z "$BACKUP_DIR" ]; then
 fi
 
 if [ -d "$BACKUP_DIR_PATH" ]; then
-  echo -e "${NOTE} Restoring previous ${ORANGE}User-Configs${RESET}... "
+  echo -e "${NOTE} Restoring previous ${MAGENTA}User-Configs${RESET}... "
   echo -e "${WARN} If you decide to restore the old configs, make sure to handle the updates or changes manually."
   echo -e "${INFO} Kindly Visit and check KooL's Hyprland-Dots GitHub page for the commits."
 
@@ -538,7 +548,7 @@ if [ -d "$BACKUP_DIR_PATH" ]; then
     BACKUP_FILE="$BACKUP_DIR_PATH/$FILE_NAME"
     if [ -f "$BACKUP_FILE" ]; then
       printf "\n${INFO} Found ${YELLOW}$FILE_NAME${RESET} in hypr backup...\n"
-      read -p "${CAT} Do you want to restore ${ORANGE}$FILE_NAME${RESET} from backup? (y/N): " file_restore
+      read -p "${CAT} Do you want to restore ${MAGENTA}$FILE_NAME${RESET} from backup? (y/N): " file_restore
 
       if [[ "$file_restore" == [Yy]* ]]; then
         if cp "$BACKUP_FILE" "$DIRPATH/UserConfigs/$FILE_NAME"; then
@@ -567,14 +577,14 @@ DIRSHPATH=~/.config/"$DIRSH"
 BACKUP_DIR_PATH="$DIRSHPATH-backup-$BACKUP_DIR/UserScripts"
 
 if [ -d "$BACKUP_DIR_PATH" ]; then
-  echo -e "${NOTE} Restoring previous ${ORANGE}User-Scripts${RESET}..."
+  echo -e "${NOTE} Restoring previous ${MAGENTA}User-Scripts${RESET}..."
 
   for SCRIPT_NAME in "${SCRIPTS_TO_RESTORE[@]}"; do
     BACKUP_SCRIPT="$BACKUP_DIR_PATH/$SCRIPT_NAME"
 
     if [ -f "$BACKUP_SCRIPT" ]; then
       printf "\n${INFO} Found ${YELLOW}$SCRIPT_NAME${RESET} in hypr backup...\n"
-      read -p "${CAT} Do you want to restore ${ORANGE}$SCRIPT_NAME${RESET} from backup? (y/N): " script_restore
+      read -p "${CAT} Do you want to restore ${MAGENTA}$SCRIPT_NAME${RESET} from backup? (y/N): " script_restore
       if [[ "$script_restore" == [Yy]* ]]; then
         if cp "$BACKUP_SCRIPT" "$DIRSHPATH/UserScripts/$SCRIPT_NAME"; then
           echo "${OK} - $SCRIPT_NAME restored!" 2>&1 | tee -a "$LOG"
@@ -609,7 +619,8 @@ if hostnamectl | grep -q 'Chassis: desktop'; then
            "$HOME/.config/waybar/configs/[BOT] Default Laptop" \
            "$HOME/.config/waybar/configs/[TOP] Default Laptop_v2" \
            "$HOME/.config/waybar/configs/[TOP] Default Laptop_v3" \
-           "$HOME/.config/waybar/configs/[TOP] Default Laptop_v4" 2>&1 | tee -a "$LOG" || true
+           "$HOME/.config/waybar/configs/[TOP] Default Laptop_v4" \
+           "$HOME/.config/waybar/configs/[TOP] Default Laptop_v5" 2>&1 | tee -a "$LOG" || true
 else
     # Configurations for a laptop or any system other than desktop
     ln -sf "$waybar_config_laptop" "$HOME/.config/waybar/config" 2>&1 | tee -a "$LOG"
@@ -618,15 +629,16 @@ else
            "$HOME/.config/waybar/configs/[BOT] Default" \
            "$HOME/.config/waybar/configs/[TOP] Default_v2" \
            "$HOME/.config/waybar/configs/[TOP] Default_v3" \
-           "$HOME/.config/waybar/configs/[TOP] Default_v4" 2>&1 | tee -a "$LOG" || true
+           "$HOME/.config/waybar/configs/[TOP] Default_v4" \
+           "$HOME/.config/waybar/configs/[TOP] Default_v5" 2>&1 | tee -a "$LOG" || true
 fi
 
 # additional wallpapers
 echo "$(tput setaf 6) By default only a few wallpapers are copied...$(tput sgr0)"
-printf "\n"
+printf "\n%.0s" {1..1}
 
 while true; do
-  read -rp "${CAT} Would you like to download additional wallpapers? ${WARN} This is more than >700mb (y/n)" WALL
+  read -rp "${CAT} Would you like to download additional wallpapers? ${WARN} This is more than 800 MB (y/n)" WALL
   case $WALL in
     [Yy])
       echo "${NOTE} Downloading additional wallpapers..."
@@ -679,9 +691,9 @@ cleanup_backups() {
 
       # If more than one backup found
       if [ ${#BACKUP_DIRS[@]} -gt 1 ]; then
-		printf "\n\n ${INFO} Performing clean up for ${ORANGE}${DIR##*/}${RESET}\n"
+		printf "\n\n ${INFO} Performing clean up for ${MAGENTA}${DIR##*/}${RESET}\n"
 
-        echo -e "${NOTE} Found multiple backups for: ${ORANGE}${DIR##*/}${RESET}"
+        echo -e "${NOTE} Found multiple backups for: ${MAGENTA}${DIR##*/}${RESET}"
         echo "${YELLOW}Backups: ${RESET}"
 
         # List the backups
@@ -689,7 +701,7 @@ cleanup_backups() {
           echo "  - ${BACKUP##*/}"
         done
 
-        read -p "${CAT} Do you want to delete the older backups of ${ORANGE}${DIR##*/}${RESET} and keep the latest backup only? (y/N): " back_choice
+        read -p "${CAT} Do you want to delete the older backups of ${MAGENTA}${DIR##*/}${RESET} and keep the latest backup only? (y/N): " back_choice
         if [[ "$back_choice" == [Yy]* ]]; then
           # Sort backups by modification time
           latest_backup="${BACKUP_DIRS[0]}"
@@ -705,7 +717,7 @@ cleanup_backups() {
               rm -rf "$BACKUP"
             fi
           done
-          echo "Old backups of ${ORANGE}${DIR##*/}${RESET} deleted, keeping: ${YELLOW}${latest_backup##*/}${RESET}"
+          echo "Old backups of ${MAGENTA}${DIR##*/}${RESET} deleted, keeping: ${YELLOW}${latest_backup##*/}${RESET}"
         fi
       fi
     fi
@@ -725,4 +737,5 @@ wallust run -s $wallpaper 2>&1 | tee -a "$LOG"
 printf "\n%.0s" {1..4}
 printf "${OK} GREAT! KooL's Hyprland-Dots is now Loaded & Ready !!!"
 printf "\n%.0s" {1..1}
-printf "${ORANGE} HOWEVER I HIGHLY SUGGEST to logout and re-login or better reboot to avoid any issues\n\n"
+printf "${MAGENTA} However, it is HIGHLY SUGGESTED to logout and re-login or better reboot to avoid any issues\n\n"
+printf "${BLUE} Thank you for using KooL's Hyprland Configuration... ENJOY!!!\n"
