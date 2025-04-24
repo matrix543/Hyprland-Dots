@@ -12,7 +12,6 @@ configuration {
     display-window:             "  window";
     drun-display-format:        "{name}";
     window-format:              "{w} · {c} · {t}";
-    dpi:						1;
     hover-select:               true;
     me-select-entry:            "MouseSecondary";
     me-accept-entry:            "MousePrimary";
@@ -33,10 +32,6 @@ configuration {
     border-color:                @selected;
 }
 
-/*****-- Elements Font Size -----*****/
-element-text {
-  font: "JetBrainsMono Nerd Font SemiBold 12";
-}
 /* ---- Window ---- */
 window {
     // Default
@@ -167,6 +162,7 @@ element {
     cursor:                      pointer;
 }
 
+element-text selected,
 element normal.normal {
     background-color:            inherit;
     text-color:                  inherit;

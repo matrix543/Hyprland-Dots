@@ -6,11 +6,10 @@
 
 /* ---- Configuration ---- */
 configuration {
-    dpi:						1;
-    show-icons:                 true;
-    hover-select:               true;
-    me-select-entry:            "MouseSecondary";
-    me-accept-entry:            "MousePrimary";
+    show-icons:      true;
+    hover-select:    true;
+    me-select-entry: "MouseSecondary";
+    me-accept-entry: "MousePrimary";
 }
 
 /*****----- Global Properties -----*****/
@@ -32,10 +31,6 @@ configuration {
   spacing : 0;
 }
 
-/*****-- Elements Font Size -----*****/
-element-text {
-  font: "JetBrainsMono Nerd Font SemiBold 12";
-}
 
 element-icon, element-text, scrollbar {
   cursor: pointer;
@@ -91,7 +86,7 @@ listview {
 
 element {
   spacing       : 1em;
-  padding       : 8px;
+  padding       : 20px;
   border-radius : 2px;
 }
 
@@ -111,8 +106,11 @@ element selected active {
   text-color: @accent;
 }
 
+element-text selected,
 element selected {
   background-color: @bg3;
+  padding: 20px;
+  border-radius: 12px;
 }
 
 element selected urgent {

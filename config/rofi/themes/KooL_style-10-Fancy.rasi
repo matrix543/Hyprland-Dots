@@ -2,13 +2,6 @@
 /* KooL Hyprland Rofi Style 10 - Fancy */
 /* Credit to DaveDavenport. I have only some few things changed */
 
-/*******************************************************************************
- * ROFI Color theme
- * Theme designed to show off moving, packing of widgets, icons and more.
- * User: DaveDavenport
- * Copyright: DaveDavenport
- ********************************************************************************/
-
 /* ---- Configuration ---- */
 
 configuration {
@@ -16,7 +9,6 @@ configuration {
     show-icons:                 true;
     drun-display-format:        "{name}";
     window-format:              "{w} · {c} · {t}";
-    dpi:						1;
     hover-select:               true;
     me-select-entry:            "MouseSecondary";
     me-accept-entry:            "MousePrimary";
@@ -47,11 +39,6 @@ configuration {
     alternate-active-foreground: @active-foreground;
     active-background:           rgba ( 39, 40, 34, 0 % );
     selected-active-background:  rgba ( 20, 20, 17, 100 % );
-}
-
-/*****-- Elements Font Size -----*****/
-element-text {
-  font: "JetBrainsMono Nerd Font SemiBold 12";
 }
 
 window {
@@ -158,7 +145,7 @@ message {
 listview {
     enabled:                     true;
     columns:                     2;
-    lines:                       10;
+    lines:                       6;
     spacing:      2px ;
     scrollbar:    false;
     padding:      0.5em;
@@ -172,7 +159,7 @@ listview {
 element {
     border:  1;
     border-color: transparent;
-    padding: 4px ;
+    padding: 12px ;
 }
 element-text {
     background-color: inherit;
@@ -220,6 +207,12 @@ element.alternate.active {
     background-color: @alternate-active-background;
     text-color:       @alternate-active-foreground;
 }
+
+element-text selected {
+    background-color: @selected-active-background;
+    text-color:       @selected-active-foreground;
+}
+
 /* ---- Scrollbar ---- */
 scrollbar {
   border:			0px;

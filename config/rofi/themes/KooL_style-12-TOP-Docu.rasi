@@ -17,7 +17,6 @@ configuration {
     display-window:             "  ";
     drun-display-format:        "{name}";
     window-format:              "{w} · {c} · {t}";
-    dpi:						1;
     hover-select:               true;
     me-select-entry:            "MouseSecondary";
     me-accept-entry:            "MousePrimary";
@@ -32,17 +31,12 @@ entry {
     border: 					2px 0px;
     border-color:  				darkgrey;
     background-color: 			grey;
-    padding:       				4px;
+    padding:       				12px;
     placeholder:       			"🔎 Search";
     placeholder-color: 			darkgrey;
     cursor: 					text;
 }
 
-/*****-- Elements Font Size -----*****/
-element-text {
-  font: "JetBrainsMono Nerd Font SemiBold 12";
-
-}
 inputbar {
     spacing: 0;
     children: 					[  icon-keyboard, entry, mode-switcher ];
@@ -82,6 +76,7 @@ icon-keyboard {
 window {
     anchor: 					north;
     location: 					north;
+	y-offset: 					10px;
     width:            			100%;
     background-color: 			black / 50%;
     padding:           			0.5em;
@@ -109,12 +104,14 @@ element {
     border-color:     			darkgrey;
     background-color: 			grey;
     cursor: 					pointer;
-    padding:         			2px;
+    padding:         			20px;
 }
 
+element-text selected,
 element selected {
-    background-color: 			white/20%;
-    text-color:       			black;
+    background-color: 			inherit;
+    text-color:       			inherit;
+    padding:         			20px;
 }
 
 
@@ -127,6 +124,7 @@ element-text {
     horizontal-align: 			0.5;
     cursor: inherit;
 }
+
 
 /* ---- Scrollbar ---- */
 scrollbar {

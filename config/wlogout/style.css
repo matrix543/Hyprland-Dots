@@ -5,10 +5,9 @@
 @import '../../.config/waybar/wallust/colors-waybar.css';
 
 window {
-    font-family: Fira Code Medium;
-    font-size: 16pt;
-    color: #cdd6f4; /* text */
-    background-color: rgba(30, 30, 46, 0.6);
+    font-size: 24pt;
+    color: @foreground; /* text */
+    background-color: rgba(30, 30, 46, 0.8);
 }
 
 button {
@@ -20,21 +19,23 @@ button {
     transition: all 0.3s cubic-bezier(.55, 0.0, .28, 1.682), box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
     border-radius: 80px;
 	border:0px;
+	outline-style: none;
 }
 
 button:focus {
     background-size: 50%;
 	border: 0px;
+	outline-style: none;
 
 }
 
 button:hover {
-    background-color: @color12; 
-    color: #1e1e2e;
+    background-color: transparent; 
+    color: @color13;
     background-size: 50%;
     margin: 30px;
     border-radius: 80px;
-	box-shadow: 0 0 30px @color7;
+    outline-style: none;
 	
 }
 

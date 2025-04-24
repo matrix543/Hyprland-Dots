@@ -12,7 +12,6 @@ configuration {
     display-window:             "  window";
     drun-display-format:        "{name}";
     window-format:              "{w} · {c} · {t}";
-    dpi:						1;
     hover-select:               true;
     me-select-entry:            "MouseSecondary";
     me-accept-entry:            "MousePrimary";
@@ -55,10 +54,6 @@ configuration {
 
 }
 
-/*****-- Elements Font Size -----*****/
-element-text {
-  font: "JetBrainsMono Nerd Font SemiBold 12";
-}
 
 /*****----- Main Window -----*****/
 window {
@@ -221,6 +216,8 @@ element normal.active {
     background-color:            transparent;
     text-color:                  @active-foreground;
 }
+
+element-text selected,
 element selected.normal {
     background-color:            @selected-normal-background;
     text-color:                  @selected-normal-foreground;
@@ -308,7 +305,7 @@ textbox {
     border:                      0px solid;
     border-radius:               8px;
     border-color:                @border-color;
-    background-color:            @alternate-background;
+    background-color:            @color0;
     text-color:                  @foreground-color;
     vertical-align:              0.5;
     horizontal-align:            0.5;
