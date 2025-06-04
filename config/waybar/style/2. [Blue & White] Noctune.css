@@ -57,13 +57,15 @@ window#waybar {
     background: #64727D;
     border-bottom: 3px solid white;
 }
-
+#custom-hue,
 #custom-bandwidth,
 #custom-notification,
 #custom-update,
 #idle_inhibitor,
 #window,
+#temperature,
 #memory,
+#disk,
 #custom-storage,
 /*#network, */
 #wireplumber,
@@ -73,6 +75,8 @@ window#waybar {
 #workspaces,
 #clock,
 #cpu,
+#wireplumner,
+#pulseaudio,
 #custom-spotify,
 /*#bluetooth, */
 #custom-menu,

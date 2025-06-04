@@ -62,12 +62,15 @@ window#waybar {
     border-bottom: 3px solid white;
 }
 
+#custom-hue,
 #custom-bandwidth,
 #custom-notification,
 #custom-update,
 #idle_inhibitor,
 #window,
 #memory,
+#disk,
+#temperature,
 #custom-storage,
 /*#network, */
 #wireplumber,
