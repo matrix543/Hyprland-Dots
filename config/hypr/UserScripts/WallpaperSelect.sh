@@ -3,11 +3,9 @@
 # This script for selecting wallpapers (SUPER W)
 
 # WALLPAPERS PATH
-
 wallDIR="/usr/share/backgrounds/hypr_wallpapers"
-
 terminal=kitty
-
+#wallDIR="$HOME/Pictures/wallpapers"
 SCRIPTSDIR="$HOME/.config/hypr/scripts"
 wallpaper_current="$HOME/.config/hypr/wallpaper_effects/.wallpaper_current"
 
@@ -63,11 +61,20 @@ kill_wallpaper_for_image() {
 
 # Retrieve wallpapers (both images & videos)
 mapfile -d '' PICS < <(find -L "${wallDIR}" -type f \( \
-  -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" -o \
+  -iname "*.jpg" -and -not -iname "*-dark**" -o -iname "*.jpeg" -and -not -iname "*-dark**" -o \
+  -iname "*.png" -and -not -iname "*-dark*" -o -iname "*.gif" -and -not -iname "*-dark*" -o \
   -iname "*.bmp" -o -iname "*.tiff" -o -iname "*.webp" -o \
-  -iname "*.mp4" -o -iname "*.mkv" -o -iname "*.mov" -o -iname "*.webm" \) -print0)
+  -iname "*.mp4" -and -not -iname "*-dark*" -o -iname "*.mkv" -and -not -iname "*-dark*" -o -iname "*.mov" -o -iname "*.webm" -and -not -iname "*-dark*" \) -print0)
 
-RANDOM_PIC="${PICS[$((RANDOM % ${#PICS[@]}))]}"
+
+mapfile -d '' PICS_R < <(find "${wallDIR}" -type f \( \
+  -iname "*.jpg" -and -not -iname "*-dark**" -o -iname "*.jpeg" -and -not -iname "*-dark**" -o \ 
+  -iname "*.png" -and -not -iname "*-dark*" -o -iname "*.gif" -and -not -iname "*-dark*" -o \
+  -iname "*.bmp" -o -iname "*.tiff" -o -iname "*.webp" -o \
+  -iname "*.mp4" -and -not -iname "*-dark*" -o -iname "*.mkv" -and -not -iname "*-dark*" -o -iname "*.mov" -o -iname "*.webm" -and -not -iname "*-dark*" \) -print0)
+
+
+RANDOM_PIC="${PICS[$((RANDOM % ${#PICS_R[@]}))]}"
 RANDOM_PIC_NAME=". random"
 
 # Rofi command
@@ -101,19 +108,19 @@ menu() {
   done
 }
 
-# Offer SDDM Simple Wallpaper Option (only for non-video wallpapers)
+# Offer SDDM Sequioa Wallpaper Option (only for non-video wallpapers)
 set_sddm_wallpaper() {
   sleep 1
-  sddm_simple="/usr/share/sddm/themes/simple_sddm_2"
+  sddm_sequoia="/usr/share/sddm/themes/sequoia_2"
 
-  if [ -d "$sddm_simple" ]; then
+  if [ -d "$sddm_sequoia" ]; then
 
     # Check if yad is running to avoid multiple notifications
     if pidof yad >/dev/null; then
       killall yad
     fi
 
-    if yad --info --text="Set current wallpaper as SDDM background?\n\nNOTE: This only applies to SIMPLE SDDM v2 Theme" \
+    if yad --info --text="Set current wallpaper as SDDM background?\n\nNOTE: This only applies to SEQUOIA SDDM Theme" \
       --text-align=left \
       --title="SDDM Background" \
       --timeout=5 \
@@ -128,8 +135,8 @@ set_sddm_wallpaper() {
       fi
 
       # Open terminal to enter password
-      $terminal -e bash -c "echo 'Enter your password to set wallpaper as SDDM Background'; \
-            sudo cp -r $wallpaper_current '$sddm_simple/Backgrounds/default' && \
+      $terminal -e bash -c "echo 'set wallpaper as SDDM Background'; \
+            cp -r $wallpaper_current '$sddm_sequoia/backgrounds/default' && \
             notify-send -i '$iDIR/ja.png' 'SDDM' 'Background SET'"
     fi
   fi
@@ -138,6 +145,8 @@ set_sddm_wallpaper() {
 modify_startup_config() {
   local selected_file="$1"
   local startup_config="$HOME/.config/hypr/UserConfigs/Startup_Apps.conf"
+  
+  #local start="$HOME/.config/hypr/UserScripts/change-light_dark2.sh"
 
   # Check if it's a live wallpaper (video)
   if [[ "$selected_file" =~ \.(mp4|mkv|mov|webm)$ ]]; then
@@ -148,7 +157,8 @@ modify_startup_config() {
     # Update the livewallpaper variable with the selected video path (using $HOME)
     selected_file="${selected_file/#$HOME/\$HOME}" # Replace /home/user with $HOME
     sed -i "s|^\$livewallpaper=.*|\$livewallpaper=\"$selected_file\"|" "$startup_config"
-
+    
+    ##sed -i "s|^\wallfile=.*|\wallfile=\"$selected_file\"|" "$start"
     echo "Configured for live wallpaper (video)."
   else
     # For image wallpapers:
@@ -171,9 +181,16 @@ apply_image_wallpaper() {
     swww-daemon --format xrgb &
   fi
 
-  swww img -o "$focused_monitor" "$image_path" $SWWW_PARAMS
+  #swww img -o "$focused_monitor" "$image_path" $SWWW_PARAMS
+  swww img "$image_path" $SWWW_PARAMS
+  
+  #set fastfetch logo
+  rm $HOME/.config/fastfetch/pngs/.fetch*
+  ln -sf $HOME/.config/fastfetch/png_files/.fetch.png $HOME/.config/fastfetch/pngs/
+  
+  #remove video link
+  rm $HOME/.config/hypr/wallpaper_effects/.video
 
-  # Run additional scripts
   "$SCRIPTSDIR/WallustSwww.sh"
   sleep 2
   "$SCRIPTSDIR/Refresh.sh"
@@ -192,8 +209,39 @@ apply_video_wallpaper() {
   fi
   kill_wallpaper_for_video
 
-  # Apply video wallpaper using mpvpaper
-  mpvpaper '*' -o "load-scripts=no no-audio --loop" "$video_path" &
+  #echo $video_path
+  echo "$video_path" > $HOME/.cache/swww/$focused_monitor-video;
+  vid=${video_path##*/}
+ 
+  cache_vid="$HOME/.cache/video_preview/${vid}.png"
+  echo "$cache_vid" > $HOME/.cache/swww/$focused_monitor;
+  
+ # Apply video wallpaper using mpvpaper
+ mpvpaper '*' -o "load-scripts=no panscan=1 no-audio --loop" "$video_path" &
+ 
+ ln -sf $video_path $HOME/.config/hypr/wallpaper_effects/.video
+  
+  rm $HOME/.config/fastfetch/pngs/.fetch*
+  ln -sf $HOME/.config/fastfetch/png_files/.fetch-${vid}.png $HOME/.config/fastfetch/pngs/
+  
+  if [ -e "$HOME/.config/fastfetch/png_files/.fetch2-${vid}.png" ] ; then 
+    ln -sf $HOME/.config/fastfetch/png_files/.fetch2-${vid}.png $HOME/.config/fastfetch/pngs/
+  fi
+  
+  if [ ! -e "$HOME/.config/fastfetch/pngs/.fetch-${vid}.png" ] ; then
+    # code if the symlink is broken
+    rm $HOME/.config/fastfetch/pngs/.fetch*
+    ln -sf $HOME/.config/fastfetch/png_files/.fetch.png $HOME/.config/fastfetch/pngs/  
+
+  fi
+
+  # Run additional scripts
+  "$SCRIPTSDIR/WallustSwww.sh"
+  sleep 2
+  "$SCRIPTSDIR/Refresh.sh"
+  sleep 1
+  
+  set_sddm_wallpaper
 }
 
 # Main function
@@ -215,7 +263,7 @@ main() {
   choice_basename=$(basename "$choice" | sed 's/\(.*\)\.[^.]*$/\1/')
 
   # Search for the selected file in the wallpapers directory, including subdirectories
-  selected_file=$(find "$wallDIR" -iname "$choice_basename.*" -print -quit)
+  selected_file=$(find -L "$wallDIR" -iname "$choice_basename.*" -print -quit)
 
   if [[ -z "$selected_file" ]]; then
     echo "File not found. Selected choice: $choice"
@@ -239,3 +287,4 @@ if pidof rofi >/dev/null; then
 fi
 
 main
+
