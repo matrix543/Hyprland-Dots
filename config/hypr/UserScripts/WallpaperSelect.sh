@@ -138,6 +138,9 @@ set_sddm_wallpaper() {
       $terminal -e bash -c "echo 'set wallpaper as SDDM Background'; \
             cp -r $wallpaper_current '$sddm_sequoia/backgrounds/default' && \
             notify-send -i '$iDIR/ja.png' 'SDDM' 'Background SET'"
+	  
+	  #exec $SCRIPTSDIR/sddm_wallpaper.sh --normal
+    
     fi
   fi
 }
